@@ -1,0 +1,5 @@
+---
+- hosts: os6switches
+  connection: ansible.netcommon.network_cli
+  roles:
+    - dellemc.os6.os6_vrrp

@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  connection: ansible.netcommon.network_cli
+  roles:
+    - dellemc.os6.os6_qos
