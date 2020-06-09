@@ -1,16 +1,16 @@
-namespace: dellemc_networking
+namespace: dellemc
 name: os6
-version: 0.1.0
+version: 0.0.1
 readme: README.md
 authors:
- - Abirami N (github.com/abirami-n)
-description: null
-license: GPL-3.0-or-later
-license_file: COPYING
-tags: null
+- Komal Patil <Komal_uttamrao_Patil@dell.com>
+- Senthil Ganesan Ganesan <Senthil_Kumar_Ganesa@Dell.com>
+description: Ansible Network Collection for Dell EMC OS6
+license_file: LICENSE
+tags: [dell, dellemc, os6, emc, networking]
 dependencies:
-  ansible.netcommon: '>=0.0.1'
-repository: https://github.com:ansible-collections/dellemc_networking.os6.git
-documentation: https://github.com/ansible-collections/dellemc_networking.os6/tree/master/docs
-homepage: https://github.com:ansible-collections/dellemc_networking.os6
-issues: https://github.com:ansible-collections/dellemc_networking.os6
+  ansible.netcommon: '>=0.0.2'
+repository: 'https://github.com/ansible-collections/dellemc.os6'
+documentation: 'https://github.com/ansible-collections/dellemc.os6/tree/master/docs'
+homepage: 'https://github.com/ansible-collections/dellemc.os6'
+issues: 'https://github.com/ansible-collections/dellemc.os6/issues'
