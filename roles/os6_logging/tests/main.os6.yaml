@@ -8,4 +8,3 @@ os6_logging:
       - ip: 1.1.1.1
         state: present
     source_interface: "vlan 30"
-

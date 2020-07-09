@@ -16,7 +16,6 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 DOCUMENTATION = """
 ---
 module: os6_command
-version_added: "2.2"
 author: "Abirami N (@abirami-n)"
 short_description: Run commands on remote devices running Dell OS6
 description:
@@ -26,7 +25,7 @@ description:
     before returning or timing out if the condition is not met.
   - This module does not support running commands in configuration mode.
     Please use M(os6_config) to configure Dell OS6 devices.
-extends_documentation_fragment: os6
+extends_documentation_fragment: dellemc.os6.os6
 options:
   commands:
     description:
@@ -36,6 +35,7 @@ options:
         module is not returned until the condition is satisfied or
         the number of retries has expired.
     type: list
+    elements: dict
     required: true
   wait_for:
     description:
@@ -45,7 +45,7 @@ options:
         within the configured number of I(retries), the task fails.
         See examples.
     type: list
-    version_added: "2.2"
+    element: str
   match:
     description:
       - The I(match) argument is used in conjunction with the
@@ -57,7 +57,6 @@ options:
     type: str
     default: all
     choices: [ all, any ]
-    version_added: "2.5"
   retries:
     description:
       - Specifies the number of retries a command should be tried
@@ -166,9 +165,9 @@ def main():
     """
     argument_spec = dict(
         # { command: <str>, prompt: <str>, response: <str> }
-        commands=dict(type='list', required=True),
+        commands=dict(type='list', elements='dict', required=True),
 
-        wait_for=dict(type='list'),
+        wait_for=dict(type='list', elements='str'),
         match=dict(default='all', choices=['all', 'any']),
 
         retries=dict(default=10, type='int'),

@@ -15,7 +15,7 @@ os6_lldp:
       fast_start_repeat_count: 4
       config_notification: true
   local_interface:
-    gigabitethernet 1/0/1:
+    GigabitEthernet 1/0/1:
       mode:
         tx: true
         rx: false
@@ -24,4 +24,3 @@ os6_lldp:
         med:
           config_notification: true
           enable: true
-

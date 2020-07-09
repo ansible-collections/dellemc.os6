@@ -7,7 +7,6 @@ os6_aaa:
   tacacs_server:
         key: 0
         key_string: aacdsvdfsvfsfvfsv
-        timeout: 10
         host:
           - ip: 30.0.0.10
             key:
@@ -20,20 +19,18 @@ os6_aaa:
         key_string: ahvksjvskjvb
         retransmit: 4
         timeout: 5
-        deadtime: 6
         host:
           - ip: 40.0.0.10
             key: 0
             key_string: ahvksjvskjvbkjsd
+            retransmit: 4
             auth_port: 6
             timeout: 6
-            name: svsdf
             state: absent
         acct:
           - ip: 10.0.0.1
             key: 0
-            key_string: asvkbjfssvfsf
-            name:  
+            key_string: asvkbjfssvfsf 
             auth_port: 2
             state: present
         auth:
@@ -68,29 +65,29 @@ os6_aaa:
 
 
   aaa_authentication:
-        auth_list:
-          - name: default
-            login_or_enable: login
-            server: tacacs
-            use_password: local
-            state: absent
-          - name: console
-            server: radius
-            login_or_enable: login
-            use_password: local
-            state: absent
-          - name: tacp
-            server: tacacs
-            login_or_enable: enable
-            use_password: enable
-            state: absent
-        dot1x: none
+      auth_list:
+        - name: default
+          login_or_enable: login
+          server: tacacs
+          use_password: local
+          state: absent
+        - name: console
+          server: radius
+          login_or_enable: login
+          use_password: local
+          state: absent
+        - name: tacp
+          server: tacacs
+          login_or_enable: enable
+          use_password: enable
+          state: absent
+      dot1x: none
   aaa_authorization:
       exec:
-          - authorization_list_name: aaa
-            authorization_method: radius
-            use_data: local
-            state: absent
+        - authorization_list_name: aaa
+          authorization_method: radius
+          use_data: local
+          state: absent
       network: radius
   aaa_accounting:
       dot1x: none

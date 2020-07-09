@@ -15,7 +15,7 @@ os6_system:
 {% if os6_system.hostname is defined and os6_system.hostname %}
 hostname "{{ os6_system.hostname }}"
 {% endif %}
-{% for key,value in os6_system.iteritems() %}
+{% for key,value in os6_system.items() %}
 
   {% if key == "enable_password" %}
     {% if value  %}

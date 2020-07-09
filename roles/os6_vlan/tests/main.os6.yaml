@@ -7,18 +7,13 @@ os6_vlan:
     vlan 100:
       name: "Blue Network"
       tagged_members:
-          - port: Te1/0/1
-            state: present
-          - port: Te1/0/2
-            state: present
+        - port: TenGigabitEthernet 1/0/1
+          state: present
+        - port: TenGigabitEthernet 1/0/2
+          state: present
       untagged_members:
-          - port: Te1/0/3
-            state: present
-          - port: Te1/0/4
-            state: present
+        - port: TenGigabitEthernet 1/0/3
+          state: present
+        - port: TenGigabitEthernet 1/0/4
+          state: present
       state: present
-
-
-
-
-

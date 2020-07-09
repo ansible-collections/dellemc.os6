@@ -23,7 +23,7 @@ import json
 
 from ansible.compat.tests.mock import patch
 from units.modules.utils import set_module_args
-from .dellos6_module import TestDellos6Module, load_fixture
+from .os6_module import TestDellos6Module, load_fixture
 from ansible_collections.dellemc.os6.plugins.modules import os6_facts
 
 
@@ -57,7 +57,7 @@ class TestDellos6Facts(TestDellos6Module):
                     command = item
                 if '|' in command:
                     command = str(command).replace('|', '')
-                filename = str(command).replace(' ', '_') 
+                filename = str(command).replace(' ', '_')
                 filename = filename.replace('/', '7')
                 output.append(load_fixture(filename))
             return output
@@ -101,6 +101,5 @@ class TestDellos6Facts(TestDellos6Module):
         self.assertIn('default', ansible_facts['ansible_net_gather_subset'])
         self.assertIn('interfaces', ansible_facts['ansible_net_gather_subset'])
         self.assertIn('Te1/0/1', ansible_facts['ansible_net_interfaces'].keys())
-        self.assertEquals(['Te1/0/5','Te1/0/6'], ansible_facts['ansible_net_neighbors'].keys())
+        self.assertEquals(['Te1/0/5', 'Te1/0/6'], ansible_facts['ansible_net_neighbors'].keys())
         self.assertIn('ansible_net_interfaces', ansible_facts)
-

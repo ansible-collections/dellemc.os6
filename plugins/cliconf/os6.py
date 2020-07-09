@@ -28,7 +28,6 @@ short_description: Use os6 cliconf to run command on Dell OS6 platform
 description:
   - This os6 plugin provides low level abstraction apis for
     sending and receiving CLI commands from Dell OS6 network devices.
-version_added: 2.5
 """
 
 import re
@@ -39,7 +38,6 @@ from itertools import chain
 from ansible.module_utils._text import to_bytes, to_text
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.utils import to_list
 from ansible.plugins.cliconf import CliconfBase, enable_mode
-
 
 
 class Cliconf(CliconfBase):

@@ -44,11 +44,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_users* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -62,7 +57,7 @@ This role is abstracted using the *ansible_network_os* variable that can take de
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -70,26 +65,18 @@ This role is abstracted using the *ansible_network_os* variable that can take de
     build_dir: ../temp/temp_os6
 	  
     os6_users:
-       - userrole: role1
-         userrole_state: present
-       - username: u1
-         password: test
-         role: sysadmin
-         privilege: 0
-         state: absent
-       - username: u1
-         password: false
-         privilege: 1
-         access_class: a1
-         role: netadmin
-         state: present
-       - username: u2
-         secret: test1
-         secret_key : 0
-         access_class: a2
-         privilege: 3
-         role: sysadmin
-         state: present
+      - username: u1
+        privilege: 0
+        state: absent
+      - username: u1
+        password: dell@force10
+        password: false
+        privilege: 1
+        state: present
+      - username: u2
+        password: test1234567
+        privilege: 3
+        state: present
 
 **Simple playbook to setup users - switch1.yaml**
 

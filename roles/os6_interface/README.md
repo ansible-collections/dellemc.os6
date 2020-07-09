@@ -14,7 +14,7 @@ Role variables
 - Any role variable with a corresponding state variable setting to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
 - *os6_interface* (dictionary) holds a dictionary with the interface name; interface name can correspond to any of the valid OS interfaces with the unique interface identifier name
-- For physical interfaces, the interface name must be in *<interfacename> <tuple>* format; for logical interfaces, the interface must be in *<logical_interfacename> <id>* format; physical interface name can be *Te1/0/1* for os6 devices
+- For physical interfaces, the interface name must be in *<interfacename> <tuple>* format; for logical interfaces, the interface must be in *<logical_interfacename> <id>* format; physical interface name can be *TenGigabitEthernet 1/0/1* for os6 devices
 - For interface ranges, the interface name must be in *range <interface_type> <node/slot/port[:subport]-node/slot/port[:subport]>* format
 - Logical interface names can be *vlan 1* or *port-channel 1* for os6 devices
 - Variables and values are case-sensitive
@@ -28,7 +28,6 @@ Role variables
 | ``desc``  | string         | Configures a single line interface description  | os6 |
 | ``portmode`` | string | Configures port-mode according to the device type | os6 (access and trunk)  |
 | ``admin``      | string: up,down\*              | Configures the administrative state for the interface; configuring the value as administratively "up" enables the interface; configuring the value as administratively "down" disables the interface | os6 |
-| ``mtu``        | integer                       | Configures the MTU size for L2 and L3 interfaces; example, set globally on os6 devices | os6 |
 | ``suppress_ra`` | string; present,absent     | Configures IPv6 router advertisements if set to present | os6 |
 | ``ip_type_dynamic`` | boolean: true,false           | Configures IP address DHCP if set to true (*ip_and_mask* is ignored if set to true) | os6 |
 | ``ip_and_mask`` | string | configures the specified IP address to the interface VLAN on os6 devices (192.168.11.1/24 format) | os6 |
@@ -58,11 +57,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6-interface* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -78,7 +72,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     hostname: "switch1"
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -86,64 +80,22 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
     build_dir: ../temp/temp_os6
 
     os6_interface:
-        TenGigabitEthernet 1/8:
-          desc: "Connected to Spine1"
-          portmode: trunk
-          switchport: False
-          mtu: 2500
-          admin: up
-          auto_neg: true
-          speed: auto
-          duplex: full
-          keepalive: true
-          ipv6_and_mask: 2001:4898:5808:ffa2::5/126
-          suppress_ra : present
-          ip_type_dynamic: true
-          ip_and_mask: 192.168.23.22/24
-          class_vendor_identifier: present
-          option82: true
-          remote_id: hostname
-        fortyGigE 1/9:
-          desc: "Connected to Spine2"
-          switchport: False
-          mtu: 2500
-          admin: up
-          cr4_auto_neg: true
-          ip_and_mask: 192.168.234.20/31
-          ip_and_mask_secondary: "192.168.234.21/31"
-          secondary_ip_state: present
-          suppress_ra: absent
-          ip_type_dynamic: false
-          class_vendor_identifier: absent
-          option82: true
-          remote_id: hostname
-          ipv6_and_mask: 2001:4898:5808:ffa2::9/126
-          flowcontrol:
-            mode: "receive"
-            enable: "on" 
-            state: "present"
-         vlan 100:
-           mtu: 4096
-           admin: down
-           ip_and_mask:
-           ipv6_and_mask: 2002:4898:5408:faaf::1/64
-           suppress_ra: present
-           state_ipv6: absent
-           ip_helper:
-              - ip: 10.0.0.36
-                state: absent
-            ipv6_reachabletime: 600000
-         virtual-network 888:
-           vrf: "green"
-           desc: "virtual-network interface"
-           ip_and_mask: "172.17.17.251/24"
-           ip_virtual_gateway_ip: "172.17.17.1"
-           admin: up
-         vlan 20:
-           suppress_ra: absent
-           min_ra: 3
-           max_ra: 4
-           admin: up
+        TenGigabitEthernet 1/0/8:
+                desc: "Connected to Spine1"
+                portmode: trunk
+                admin: up
+        vlan 100:
+                admin: down
+                ip_and_mask:
+                ipv6_and_mask: 2002:4898:5408:faaf::1/64
+                suppress_ra: present
+                ip_helper:
+                  - ip: 10.0.0.36
+                    state: absent
+                ipv6_reachabletime: 600000
+        vlan 20:
+                suppress_ra: absent
+                admin: up
 
 **Simple playbook to setup system - switch1.yaml**
 

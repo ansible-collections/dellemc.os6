@@ -49,11 +49,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 | ``ansible_network_os`` | yes      | os6, null\*  | This value is used to load the correct terminal and cliconf plugins to communicate with the remote device. |
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_lag* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -69,7 +64,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -79,19 +74,12 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
     os6_lag:
         Po 127:
           type: static
+          hash: 7
           min_links: 3
-          lacp:
-            long_timeout: true
-            fast_switchover: true
-          lacp_system_priority: 1
-          lacp_ungroup_vlt: true
-          lacp_ungroup:
-            - port-channel:1
-              state: present
           channel_members:
-            - port: fortyGigE 1/4
+            - port: FortyGigabitEthernet 4/0/1
               state: present
-            - port: fortyGigE 1/5
+            - port: FortyGigabitEthernet 4/0/1
               state: present
           state: present
 

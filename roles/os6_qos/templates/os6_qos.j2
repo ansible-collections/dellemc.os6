@@ -6,35 +6,35 @@ Configure qos commands for os6 Devices.
 
 os6_qos:
   class_map:
-   - name: CONTROL
-     type: match-all
-     match_condition:
-       - ip dscp 40
-     state: present
-   - name: testclass
-     type: match-all
-     match_condition: 
-       - vlan 4
-     state: present
-   - name: test
-     type: match-any
-     match_condition: 
-       - vlan 5
-     state: present
+    - name: CONTROL
+      type: match-all
+      match_condition:
+        - ip dscp 40
+      state: present
+    - name: testclass
+      type: match-all
+      match_condition: 
+        - vlan 4
+      state: present
+    - name: test
+      type: match-any
+      match_condition: 
+        - vlan 5
+      state: present
   policy_map:
-   - name: testpolicy
-     type: in
-     class_instances:
-       - name: testclass
-         policy: 
-           - assign-queue 4
-           - mirror Po1
-         state: present
-       - name: test
-         policy:
-           - assign-queue 4
-         state: present
-     state: present
+    - name: testpolicy
+      type: in
+      class_instances:
+        - name: testclass
+          policy: 
+            - assign-queue 4
+            - mirror Po1
+          state: present
+        - name: test
+          policy:
+            - assign-queue 4
+          state: present
+      state: present
 
 #####################################################}
 {% if os6_qos is defined and os6_qos %}

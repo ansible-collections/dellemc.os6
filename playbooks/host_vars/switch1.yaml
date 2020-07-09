@@ -45,7 +45,3 @@ os6_bgp:
         default_originate: True
         state: present
     state: present
-
-
-
-

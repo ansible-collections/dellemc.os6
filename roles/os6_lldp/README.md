@@ -17,11 +17,11 @@ Role variables
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``interval`` | integer | The interval in seconds to transmit local LLDP data (5 to 32768) | os6 |
-| ``hold`` | integer | The interval multiplier to set local LLDP data TTL (2 to 10) | os6 |
-| ``notification_interval`` | integer | Configure minimum interval to send remote data change notifications (5 - 3600) | os6 |
-| ``reinit`` | integer | Configures the reinit value (1-10) | os6 |
 | ``timers`` | dictionary | Configures the LLDP global timer value | os6 |
+| ``timers.interval`` | integer | The interval in seconds to transmit local LLDP data (5 to 32768) | os6 |
+| ``timers.hold`` | integer | The interval multiplier to set local LLDP data TTL (2 to 10) | os6 |
+| ``timers.reinit`` | integer | Configures the reinit value (1-10) | os6 |
+| ``notification_interval`` | integer | Configure minimum interval to send remote data change notifications (5 - 3600) | os6 |
 | ``advertise`` | dictionary     | Configures LLDP-MED and TLV advertisement at the global level (see ``advertise.*``) | os6 |
 | ``advertise.med`` | dictionary     | Configures MED TLVs advertisement (see ``med_tlv.*``) | os6 |
 | ``med.global_med`` | boolean     | Configures global MED TLVs advertisement | os6 |
@@ -57,11 +57,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_lldp* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -75,102 +70,34 @@ This example uses the *os6_lldp* role to configure protocol lldp. It creates a *
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
     ansible_network_os: dellemc.os6.os6
     build_dir: ../temp/os6
     os6_lldp:
-       global_lldp_state: present
-       enable: false
-        mode: rx
-       multiplier: 3
-       fcoe_priority_bits: 3
-       iscsi_priority_bits: 3
-       hello: 6
-       dcbx:
-         version: auto
-       management_interface:
-         hello: 7
-         multiplier: 3
-         mode: tx
-         enable: true
-         advertise:
-           port_descriptor: false
-           management_tlv: management-address system-capabilities
-           management_tlv_state: absent
-       advertise:
-         dcbx_tlv: pfc
-         dcbx_tlv_state: absent
-         dcbx_appln_tlv: fcoe
-         dcbx_appln_tlv_state:
-         dot1_tlv:
-           port_tlv:
-              protocol_vlan_id: true
-              port_vlan_id: true
-           vlan_tlv:
-              vlan_range: 2-4
-         dot3_tlv:
-           max_frame_size: false
-         port_descriptor: false
-         management_tlv: management-address system-capabilities
-         management_tlv_state: absent
-         med:
-           global_med: true
-           application:
-             - name: "guest-voice"
-               vlan_id: 2
-               l2_priority: 3
-               code_point_value: 4
-             - name: voice
-               priority_tagged: true
-               l2_priority: 3
-               code_point_value: 4
-           location_identification:
-             - loc_info: ecs-elin
-               value: 12345678911
-               state: present
-       local_interface:
-         fortyGigE 1/3:
-           lldp_state: present
-           enable: false
-           mode: rx
-           multiplier: 3
-           hello: 8
-           dcbx:
-             version: auto
-             port_role: auto-upstream
-           advertise:
-             dcbx_tlv: pfc
-             dcbx_tlv_state: present
-             dcbx_appln_tlv: fcoe
-             dcbx_appln_tlv_state: absent
-             dot1_tlv:
-               port_tlv:
-                 protocol_vlan_id: true
-                 port_vlan_id: true
-               vlan_tlv:
-                 vlan_range: 2-4
-                 state: present
-             dot3_tlv:
-               max_frame_size: true
-             port_descriptor: true
-             management_tlv: management-address system-capabilities
-             management_tlv_state: absent
-             med:
-               application:
-                 - name: guest-voice
-                   vlan_id: 2
-                   l2_priority: 3
-                   code_point_value: 4
-                 - name: voice
-                   priority_tagged: true
-                   l2_priority: 3
-                   code_point_value: 4
-               location_identification:
-                 - loc_info: ecs-elin
-                   value: 12345678911
+      timers:
+        reinit: 2
+        interval: 5
+        hold: 5
+      notification_interval: 5
+      advertise:
+        med:
+          global_med: true
+          fast_start_repeat_count: 4
+          config_notification: true
+      local_interface:
+        GigabitEthernet 1/0/1:
+          mode:
+            tx: true
+            rx: false
+          notification: true
+          advertise:
+          med:
+            config_notification: true
+            enable: true
+
 
 **Simple playbook to setup system - switch1.yaml**
 

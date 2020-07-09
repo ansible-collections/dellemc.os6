@@ -29,6 +29,9 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
+
 import re
 
 from ansible.module_utils._text import to_text
@@ -177,47 +180,46 @@ def os6_parse(lines, indent=None, comment_tokens=None):
             children = []
             continue
 
-        else:
-            parent_match = False
-            # handle sublevel parent
-            for pr in sublevel_cmds:
-                if pr.match(line):
-                    if len(parent) != 0:
-                        cfg._parents.extend(parent)
-                    parent.append(cfg)
-                    config.append(cfg)
-                    if children:
-                        children.insert(len(parent) - 1, [])
-                        children[len(parent) - 2].append(cfg)
-                    parent_match = True
-                    continue
-            # handle exit
-            if childline.match(line):
-                if children:
-                    parent[len(children) - 1]._children.extend(children[len(children) - 1])
-                    if len(children) > 1:
-                        parent[len(children) - 2]._children.extend(parent[len(children) - 1]._children)
+        parent_match = False
+        # handle sublevel parent
+        for pr in sublevel_cmds:
+            if pr.match(line):
+                if len(parent) != 0:
                     cfg._parents.extend(parent)
-                    children.pop()
-                    parent.pop()
-                if not children:
-                    children = list()
-                    if parent:
-                        cfg._parents.extend(parent)
-                    parent = list()
+                parent.append(cfg)
                 config.append(cfg)
-            # handle sublevel children
-            elif parent_match is False and len(parent) > 0:
-                if not children:
-                    cfglist = [cfg]
-                    children.append(cfglist)
-                else:
-                    children[len(parent) - 1].append(cfg)
+                if children:
+                    children.insert(len(parent) - 1, [])
+                    children[len(parent) - 2].append(cfg)
+                parent_match = True
+                continue
+        # handle exit
+        if childline.match(line):
+            if children:
+                parent[len(children) - 1]._children.extend(children[len(children) - 1])
+                if len(children) > 1:
+                    parent[len(children) - 2]._children.extend(parent[len(children) - 1]._children)
                 cfg._parents.extend(parent)
-                config.append(cfg)
-            # handle global commands
-            elif not parent:
-                config.append(cfg)
+                children.pop()
+                parent.pop()
+            if not children:
+                children = list()
+                if parent:
+                    cfg._parents.extend(parent)
+                parent = list()
+            config.append(cfg)
+        # handle sublevel children
+        elif parent_match is False and len(parent) > 0:
+            if not children:
+                cfglist = [cfg]
+                children.append(cfglist)
+            else:
+                children[len(parent) - 1].append(cfg)
+            cfg._parents.extend(parent)
+            config.append(cfg)
+        # handle global commands
+        elif not parent:
+            config.append(cfg)
     return config
 
 

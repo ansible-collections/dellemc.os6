@@ -12,6 +12,7 @@ os6_xstp:
       vlan:
         - range_or_id: 10
           bridge_priority: 4096
+          state: present
     mstp:
       mstp_instances:
         - number: 1
@@ -19,7 +20,5 @@ os6_xstp:
           bridge_priority: 4096
           vlans_state: present
     intf:
-      Te 1/0/5:
+      TenGigabitEthernet 1/0/5:
         edge_port: true
-
-

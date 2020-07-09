@@ -10,11 +10,11 @@ os6_bgp:
     maxpath_ibgp: 2
     maxpath_ebgp: 2
     ipv4_network:
-       - address: 101.1.2.0 255.255.255.0
-         state: present
+      - address: 101.1.2.0 255.255.255.0
+        state: present
     ipv6_network:
-       - address: 2001:4898:5808:ffa0::/126
-         state: present
+      - address: 2001:4898:5808:ffa0::/126
+        state: present
     neighbor:
       - type: ipv4
         ip: 10.10.234.16
@@ -22,6 +22,7 @@ os6_bgp:
         timer: 2 5
         default_originate: True
         peergroup: MUX_HNV_ACCESS
+        admin: up
         state: present
       - type: ipv6
         ip: 2001:4898:5808:ffa2::1
@@ -32,6 +33,8 @@ os6_bgp:
         state: present
       - type: peergroup
         name: MUX_HNV_ACCESS
+        ebgp_multihop: 4
+        subnet: 10.128.5.192/27
         remote_asn: 64918
         state: present
     redistribute:

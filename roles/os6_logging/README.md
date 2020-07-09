@@ -22,7 +22,7 @@ Role variables
 | ``logging`` | list | Configures the logging server (see ``logging.*``) | os6 |
 | ``logging.ip`` | string (required)         | Configures the IPv4 address for the logging server (A.B.C.D format) | os6 |
 | ``logging.state`` | string: absent,present\*     | Deletes the logging server if set to absent   | os6 |
-| ``source_interface`` | string | Configures the source interface for logging | os6 |
+| ``source_interface`` | string | Configures the source interface for logging, it can take values as loopback interface, vlan id, out-of-band interface and tunnel id only. | os6 |
 
 > **NOTE**: Asterisk (_*_) denotes the default value if none is specified. 
 
@@ -44,11 +44,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_logging* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -62,7 +57,7 @@ This example uses the *os6_logging* role to completely set up logging servers. I
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -74,41 +69,10 @@ This example uses the *os6_logging* role to completely set up logging servers. I
        - ip : 1.1.1.1
          state: present
        - ip: 2.2.2.2
-         secure_port: 1025
-         tcp_port: 1024
-         udp_port: 2000
          state: present
        - ip: 3.3.3.3
-         vrf:
-           name: test
-           secure_port: 1024
-           tcp_port: 1025
-           udp_port: 2000
-           state: present
-         secure_port: 1025
-         tcp_port: 2000
-         udp_port: 1025
          state: present
-     buffer: 5
-     console_level: 7
-     trap_level: 5
-     syslog_version: 5
-     history: 4
-     history_size: 3
-     monitor: 5
-     on: true
-     extended: true
-     coredump:
-       server:
-         server_ip: 2.2.2.2
-         username: u1
-         password: pwd
-         state: present
-       stackunit:
-          all: true
-          unit_num: 5
-          state: present
-     source_interface: "fortyGigE 1/9"
+      source_interface: "vlan 10"
 
 **Simple playbook to setup logging - switch1.yaml**
 

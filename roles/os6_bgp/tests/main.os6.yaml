@@ -9,11 +9,11 @@
     maxpath_ibgp: 2
     maxpath_ebgp: 2
     ipv4_network:
-       - address: 101.1.2.0 255.255.255.0
-         state: present
+      - address: 101.1.2.0 255.255.255.0
+        state: present
     ipv6_network:
-       - address: 2001:4898:5808:ffa0::/126
-         state: present
+      - address: 2001:4898:5808:ffa0::/126
+        state: present
     neighbor:
       - type: ipv4
         ip: 10.10.234.16
@@ -21,6 +21,7 @@
         timer: 2 5
         default_originate: True
         peergroup: MUX_HNV_ACCESS
+        admin: up
         src_loopback: 2
         src_loopback_state: present
         state: present

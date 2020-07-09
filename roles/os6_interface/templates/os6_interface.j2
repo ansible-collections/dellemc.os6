@@ -5,7 +5,7 @@ Purpose:
 Configure interface commands for os6 Devices.
 
 os6_interface:
-    Te1/0/1:
+    TenGigabitEthernet 1/0/1:
             desc: "connected to spine1"
             portmode: trunk
             admin: up
@@ -17,8 +17,8 @@ os6_interface:
             ipv6_and_mask: 2001:db8:3c4d:15::/64
             ipv6_reachabletime: 6000
             ip_helper:
-               - ip: 10.0.0.33
-                 state: present
+              - ip: 10.0.0.33
+                state: present
     vlan 102:
             ip_type_dynamic: True
 
