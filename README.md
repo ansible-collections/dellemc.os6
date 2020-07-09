@@ -22,9 +22,9 @@ The roles facilitate provisioning of device running Dell EMC OS6. Some of the ro
 
 The playbooks directory includes sample playbooks that illustrate the usage of OS6 collections for provisioning device running Dell EMC OS6.
 
-## Collection Installation
+## Installation
 
-Install the latest version of OS6 collection from Ansible Galaxy:
+Use this command to install the latest version of the OS6 collection from Ansible Galaxy:
 
 ```
 ansible-galaxy collection install dellemc.os6
@@ -37,6 +37,9 @@ To install a specific version, a version range identifier must be specified. For
 ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 
 ```
+
+## Dependency
+Ansible version 2.10 or later
 
 ## Sample Playbook
 
@@ -51,10 +54,7 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 
 ```
 
->**NOTE**: Environment variable ANSIBLE_NETWORK_GROUP_MODULES should be set to 'os6' for using os6-collections in playbook
-
-
-## Sample host_vars/os10_sw1.yaml
+## Sample host_vars/os6_sw1.yaml
 
 ```
 
@@ -62,6 +62,8 @@ hostname: os6switches
 # parameters for connection type network_cli
 ansible_ssh_user: xxxx
 ansible_ssh_pass: xxxx
+ansible_become: yes
+ansible_become_method: enable
 ansible_network_os: dellemc.os6.os6
 
 ```
@@ -74,6 +76,4 @@ switch1 ansible_host= 100.94.51.40
 switch2 ansible_host= 100.94.52.38
 
 ```
-
-
 
