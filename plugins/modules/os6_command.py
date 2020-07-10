@@ -45,7 +45,7 @@ options:
         within the configured number of I(retries), the task fails.
         See examples.
     type: list
-    element: str
+    elements: str
   match:
     description:
       - The I(match) argument is used in conjunction with the
