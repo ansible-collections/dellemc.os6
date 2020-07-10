@@ -60,11 +60,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_xstp* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -79,7 +74,7 @@ It writes a simple playbook that only references the *os6_xstp* role. By includi
     
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -89,18 +84,16 @@ It writes a simple playbook that only references the *os6_xstp* role. By includi
 
 **Sample vars/main.yml**
 
-     os6_xstp:
-        type: rstp
+    os6_xstp:
+        type: stp
         enable: true
         stp:
-          bridge_priority: 4096
-          state: present
-        rstp:
           bridge_priority: 4096
         pvst:
           vlan:
             - range_or_id: 10
               bridge_priority: 4096
+              state: present
         mstp:
           mstp_instances:
             - number: 1
@@ -108,10 +101,7 @@ It writes a simple playbook that only references the *os6_xstp* role. By includi
               bridge_priority: 4096
               vlans_state: present
         intf:
-          fortyGigE 1/25
-            stp_type:
-              - stp
-              - mstp
+          FortyGigabitEthernet 4/0/1:
             edge_port: true
 
 **Simple playbook to setup system - switch1.yml**

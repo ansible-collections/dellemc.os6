@@ -113,11 +113,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_aaa* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -133,7 +128,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -142,60 +137,36 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     os6_aaa:
       radius_server:
-          key: 7
-          key_string: 9ea8ec421c2e2e5bec757f44205015f6d81e83a4f0aa52fb
-          retransmit: 5
-          timeout: 40
-          deadtime: 2300
-          host:
-            - ip: 10.0.0.1
-              key: 0
-              key_string: aaa
-              name: radius
-              retransmit: 5
-              auth_port: 3
-              timeout: 2
-              state: present
+            key: 7
+            key_string: 9ea8ec421c2e2e5bec757f44205015f6d81e83a4f0aa52fb
+            retransmit: 5
+            timeout: 40
+            host:
+              - ip: 10.0.0.1
+                key: 0
+                key_string: aaa
+                retransmit: 5
+                auth_port: 3
+                timeout: 2
+                state: present
       tacacs_server:
-          key: 7
-          key_string: 9ea8ec421c2e2e5bec757f44205015f6d81e83a4f0aa52fa
-          timeout: 10
-          host:
-            - ip: 10.0.0.50
-              key: 0
-              key_string: aaa
-              port: 3
-              timeout: 2
-              state: present
+            key: 7
+            key_string: 9ea8ec421c2e2e5bec757f44205015f6d81e83a4f0aa52fa
+            host:
+              - ip: 10.0.0.50
+                key: 0
+                key_string: aaa
+                auth_port: 3
+                timeout: 2
+                state: present
       aaa_accounting:
-          commands:
-              - enable_level: 2
-                accounting_list_name: aa
-                record_option: start-stop
-                state: present
-              - role_name: netadmin
-                accounting_list_name: aa
-                no_accounting: none
-          exec:
-              - accounting_list_name: aaa
-                no_accounting: true
-                state: present
           dot1x: none
       aaa_authorization:
-          commands:
-              - enable_level: 2
-                authorization_list_name: aa
-                use_data: local
-                state: present
-              - role_name: netadmin
-                authorization_list_name: aa
-                authorization_method: none
-                use_data: local
           exec:
-              - authorization_list_name: aaa
-                authorization_method: if-authenticated
-                use_data: local
-                state: present
+            - authorization_list_name: aaa
+              authorization_method: if-authenticated
+              use_data: local
+              state: present
           network: radius
       aaa_authentication:
           auth_list:
@@ -208,6 +179,22 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
               server: tacacs+
               login_or_enable: login
               use_password: local
+              state: present
+      aaa_server:
+          radius: 
+            dynamic_author:
+              auth_type: 
+              client: 
+                - ip: 10.0.0.1
+                  key: 0
+                  key_string: aaskjsksdkjsdda
+                  state: present
+                - ip: 10.0.0.2
+                  key: 
+                  key_string: aaskjsksdkjsdda
+                  state: present
+              state: present
+            
 
 
 **Simple playbook to setup system - switch1.yaml**

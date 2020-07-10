@@ -16,16 +16,15 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 DOCUMENTATION = """
 ---
 module: os6_facts
-version_added: "2.2"
 author: "Abirami N (@abirami-n)"
-short_description: Collect facts from remote devices running Dell EMC Networking OS6
+short_description: Collect facts from devices running Dell EMC OS6
 description:
   - Collects a base set of device facts from a remote device that
     is running OS6.  This module prepends all of the
     base network fact keys with C(ansible_net_<fact>).  The facts
     module will always collect a base set of facts from the device
     and can enable or disable collection of additional facts.
-extends_documentation_fragment: os6
+extends_documentation_fragment: dellemc.os6.os6
 options:
   gather_subset:
     description:
@@ -35,6 +34,7 @@ options:
         values to include a larger subset.  Values can also be used
         with an initial C(M(!)) to specify that a specific subset should
         not be collected.
+    type: list
     default: [ '!config' ]
 """
 
@@ -300,13 +300,12 @@ class Interfaces(FactsBase):
         for line in data.split('\n'):
             if len(line) == 0:
                 continue
+            match = re.match(r'Interface Name(.+)\s([A-Za-z0-9/]*)', line)
+            if match:
+                key = match.group(2)
+                parsed[key] = line
             else:
-                match = re.match(r'Interface Name(.+)\s([A-Za-z0-9/]*)', line)
-                if match:
-                    key = match.group(2)
-                    parsed[key] = line
-                else:
-                    parsed[key] += '\n%s' % line
+                parsed[key] += '\n%s' % line
         return parsed
 
     def parse_description(self, key, desc):

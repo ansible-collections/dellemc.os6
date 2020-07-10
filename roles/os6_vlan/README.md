@@ -52,11 +52,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_vlan* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 ## Example playbook
 
 This example uses the *os6_vlan* role to setup the VLAN ID and name, and it configures tagged and untagged port members for the VLAN. You can also delete the VLAN with the ID or delete the members associated to it. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name. 
@@ -71,7 +66,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
      
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -79,15 +74,13 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
     build_dir: ../temp/temp_os6
 
     os6_vlan:
-        default_vlan: true
         vlan 100:
           name: "Mgmt Network"
-          description: "Int-vlan"
           tagged_members:
-            - port: fortyGigE 1/30
+            - port: TenGigabitEthernet 1/0/30
               state: absent
           untagged_members:
-            - port: fortyGigE 1/14
+            - port: FortyGigabitEthernet 1/0/14
               state: present
           state: present
 

@@ -4,9 +4,7 @@
 # Sample variables for OS6 device
 
 os6_users:
-   - username: test
-     password: test
-     privilege: 0
-     state: absent
-
-
+  - username: test
+    password: test
+    privilege: 0
+    state: absent

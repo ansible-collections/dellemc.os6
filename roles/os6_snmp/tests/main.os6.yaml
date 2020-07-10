@@ -5,7 +5,7 @@
  
 os6_snmp:
     snmp_contact:  test
-    snmp_location: Chennai
+    snmp_location: Santa Clara
     snmp_community:
       - name: public
         access_mode: ro
@@ -21,4 +21,3 @@ os6_snmp:
         communitystring: public
         udpport: 1
         state: absent
-

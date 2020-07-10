@@ -15,6 +15,8 @@ Role variables
 - Setting an empty value for any variable negates the corresponding configuration
 - Variables and values are case-sensitive
 
+> **NOTE**: "ip routing" needs to be enabled on the switch prior to configuring bgp via os6_bgp role.
+
 **os6_bgp keys**
 
 | Key        | Type                      | Description                                             | Support               |
@@ -72,11 +74,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_bgp* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -92,7 +89,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -117,6 +114,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
             timer: 5 10
             default_originate: False
             peergroup: per
+            admin: up
             state: present
           - ip: 2001:4898:5808:ffa2::1
             type: ipv6
@@ -126,6 +124,8 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
           - name: peer1
             type: peergroup
             remote_asn: 14
+            ebgp_multihop: 4
+            subnet: 10.128.5.192/27
             state: present
           - ip: 172.20.12.1
             type: ipv4
@@ -133,9 +133,8 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
             timer: 3 9
         redistribute:
           - route_type: static
-            route_map_name: aa
-            state: present
             address_type: ipv4
+            state: present
           - route_type: connected
             address_type: ipv6
             state: present

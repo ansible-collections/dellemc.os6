@@ -11,7 +11,7 @@ os6_ntp:
 
 #####################################}
 {% if os6_ntp is defined and os6_ntp %}
-  {% for key,value in os6_ntp.iteritems() %}
+  {% for key,value in os6_ntp.items() %}
     {% if key == "server" and value %}
       {% for item in value %}
         {% if item.ip is defined and item.ip %}

@@ -42,11 +42,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_ntp* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -61,32 +56,17 @@ By including the role, you automatically get access to all of the tasks to confi
 **Sample host_vars/switch1**
 
     host: switch1
+    ansible_become: yes
+    ansible_become_method: enable
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
     ansible_network_os: dellemc.os6.os6
     build_dir: ../temp/temp_os6
 	  
     os6_ntp:
-      source: ethernet 1/1/2
-      master: 5
-      authenticate: true
-      authentication_key:
-        - key_num: 123
-          key_string_type: 7
-          key_string: test
-          state: present
-      trusted_key:
-        - key_num: 1323
-          state: present
-      server:
-        - ip: 2.2.2.2
-          key: 345
-          prefer: true
-          state: present
-      intf:
-        ethernet 1/1/2:
-          disable: true
-          broadcast: true
+        server:
+          - ip: 2.2.2.2
+            state: absent
  
 **Simple playbook to setup NTP - switch1.yaml**
 

@@ -7,13 +7,13 @@ Variable file example:
 # VLAN Interface
 os6_vrrp:
     vlan 4:
-        - vrrp_group_id: 4
-          state: present
-          description: "Interface-vrrp4"
-          virtual_address: 10.2.0.1
-          enable: true
-          priority: 120
-          preempt: false
+      - vrrp_group_id: 4
+        state: present
+        description: "Interface-vrrp4"
+        virtual_address: 10.2.0.1
+        enable: true
+        priority: 120
+        preempt: false
 #######################################
 #}
 {% if os6_vrrp is defined and os6_vrrp %}

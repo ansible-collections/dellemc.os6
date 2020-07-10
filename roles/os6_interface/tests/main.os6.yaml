@@ -1,13 +1,12 @@
-
 # vars file for dellemc.os6.os6_interface 
 # Sample variables for OS6 device
 
 os6_interface:
-    Te1/0/2:
+    TenGigabitEthernet 1/0/2:
             desc: "Connected to Spine1"
             portmode: trunk
             admin: up
-    Te1/0/1:
+    TenGigabitEthernet 1/0/1:
             desc: "Connected to Access"
             portmode: access
             admin: up
@@ -26,6 +25,4 @@ os6_interface:
             ip_type_dynamic: True
             suppress_ra:
     vlan 105:
-            ip_and_mask: 1.1.1.1 255.255.255.0 
-
-
+            ip_and_mask: 1.1.1.1 255.255.255.0

@@ -13,7 +13,7 @@ Role variables
 - Setting an empty value for any variable negates the corresponding configuration
 - *os6_vrrp* (dictionary) holds a dictionary with the interface name key
 - Interface name can correspond to any of the valid os6 interface with a unique interface identifier name
-- Physical interfaces names must be in *<interfacename> <tuple>* format (for example *fortyGigE 1/1*)
+- Physical interfaces names must be in *<interfacename> <tuple>* format (for example *FortyGigabitEthernet 1/0/1*)
 - Variables and values are case-sensitive
 
 | Key        | Type                      | Description                                             | Support               |
@@ -64,11 +64,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_vrrp* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -84,60 +79,23 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
      
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
     ansible_network_os: dellemc.os6.os6
     build_dir: ../temp/os6
     os6_vrrp:
-        fortyGigE 1/5:
-          vrrp:
-            delay_min: 2
-            delay_reload: 3
-          vrrp_group:
-            - group_id: 2
-              type: ipv6
-              description: "Interface-vrrp-ipv6"
-              virtual_address: 2001:4898:5808:ffa3::9
-              enable: true
-              priority: 120
-              preempt: false
-              track_interface:
-                - resource_id: 3
-                  priority_cost: 25
-                  state: present
-                - interface: port-channel 120
-                  priority_cost: 20
-                - interface: fortyGigE 1/11
-                      state: present
-              track_interface_state: present
-              adv_interval_centisecs: 200
-              hold_time_centisecs: 20
-            - group_id: 4
-              state: present
-              description: "Interface-vrrp4"
-              virtual_address: 10.28.0.2
-              enable: true
-              priority: 120
-              preempt: false
-              version: both
-              track_interface:
-                - resource_id: 3
-                  priority_cost: 25
-                  state: present
-                - interface: port-channel 120
-                  priority_cost: 20
-                - interface: fortGigE 1/10
-                  state: present
-              track_interface_state: present
-              adv_interval_centisecs: 225
-              hold_time_centisecs: 25
-              authentication:
-                key: 0
-                key_string: vrrpkey
-                state: present
+        vlan 4:
+          - vrrp_group_id: 4
+            state: present
+            description: "Interface-vrrp4"
+            virtual_address: 10.2.0.1
+            enable: true
+            priority: 120
+            preempt: false
 
+          
 **Simple playbook to setup system - switch1.yaml**
 
     - hosts: switch1

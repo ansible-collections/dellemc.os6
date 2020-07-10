@@ -54,11 +54,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_snmp* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -74,7 +69,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -83,8 +78,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 	  
     os6_snmp:
       snmp_contact:  test
-      snmp_location: chennai
-      snmp_server_vrf: test
+      snmp_location: Santa Clara
       snmp_community:
         - name: public
           access_mode: ro
@@ -93,54 +87,12 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
           access_mode: rw
           state: present
       snmp_host:
-        - ipv6: 2001:4898:f0:f09b::2000
-          version: "3"
-          security_level: auth
-          communitystring:
-          udpport:
+        - ip: 10.0.0.1
+          communitystring: public
+          udpport: 1
           state: absent
       snmp_traps:
         - name: config
-          state: present
-      snmp_engine_id: 1234567890
-      snmp_view:
-        - name: view_1
-          oid_subtree: 2
-          include: false
-          state: absent
-      snmp_user:
-        - name: user_1
-          group_name: grp1
-          version: 3
-          access_list:
-            access: a1
-            ipv6: ip1
-          encryption: true
-          auth_algorithm: md5
-          auth_pass: 12345678
-          state: present
-      snmp_group:
-        - name: group_1
-          version: 2c
-          access_list:
-            access: a1
-            ipv6: ip1
-          state: absent
-        - name: group_2
-          version: 3
-          security_level: priv
-          access_list:
-            access: a1
-            ipv6: ip1
-          context:
-            - context_name: c1
-              state: present
-            - context_name: c2
-              access_list:
-                access: a1
-              view:
-                read: r1
-              state: present 
           state: present
 
 **Simple playbook to setup snmp - switch1.yaml**

@@ -61,11 +61,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (_*_) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_acl* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -81,7 +76,7 @@ When *os6_cfg_generate* is set to true, it generates the configuration commands 
 
     hostname: switch1
     ansible_become: yes
-    ansible_become_method: xxxxx
+    ansible_become_method: enable
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
@@ -90,23 +85,24 @@ When *os6_cfg_generate* is set to true, it generates the configuration commands 
     os6_acl:
       - type: ipv4
         name: ssh-only
-        description: ipv4acl
         remark:
-          - number: 5
-            description: "ipv4remark"
+          - description: "ipv4remark"
+            state: present
         entries:
-          - seq_number: 5
+          - number: 4
+            seq_number: 1000
             permit: true
             protocol: tcp
-            match_condition: any
+            match_condition: any any
             state: present
         stage_ingress:
           - name: vlan 30
             state: present
-            seq_number: 40
+            seq_number: 50
         stage_egress:
           - name: vlan 40
             state: present
+            seq_number: 40
         state: present
             
 **Simple playbook to setup system - switch1.yaml**

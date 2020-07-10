@@ -50,11 +50,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os6_qos* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
-
 Example playbook
 ----------------
 
@@ -69,6 +64,8 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 **Sample host_vars/switch1**
 
     hostname: switch1
+    ansible_become: yes
+    ansible_become_method: enable
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
     ansible_network_os: dellemc.os6.os6
@@ -76,13 +73,19 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 	  
     os6_qos:
       policy_map:
-       - name: testpolicy
-         type: qos
-         state: present
+        - name: testpolicy
+          type: qos
+          class_instances:
+            - name: video
+              policy:
+                - assign-queue 1
+          state: present
       class_map:
-       - name: testclass
-         type: application
-         state: present
+        - name: testclass
+          type: application
+          match_condition:
+            - ip dscp 26
+          state: present
      
 **Simple playbook to setup qos - switch1.yaml**
 
