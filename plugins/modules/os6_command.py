@@ -17,14 +17,14 @@ DOCUMENTATION = """
 ---
 module: os6_command
 author: "Abirami N (@abirami-n)"
-short_description: Run commands on remote devices running Dell OS6
+short_description: Run commands on devices running Dell EMC OS6
 description:
-  - Sends arbitrary commands to a Dell OS6 node and returns the results
+  - Sends arbitrary commands to a OS6 device and returns the results
     read from the device. This module includes an
     argument that will cause the module to wait for a specific condition
     before returning or timing out if the condition is not met.
   - This module does not support running commands in configuration mode.
-    Please use M(os6_config) to configure Dell OS6 devices.
+    Please use M(dellemc_os6_os6_config) to configure OS6 devices.
 extends_documentation_fragment: dellemc.os6.os6
 options:
   commands:

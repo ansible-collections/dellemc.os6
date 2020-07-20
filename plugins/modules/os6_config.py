@@ -16,7 +16,7 @@ DOCUMENTATION = """
 ---
 module: os6_config
 author: "Abirami N (@abirami-n)"
-short_description: Manage Dell EMC Networking OS6 configuration sections
+short_description: Manage Dell EMC OS6 configuration sections
 description:
   - OS6 configurations use a simple block indent file syntax
     for segmenting configuration into sections.  This module provides

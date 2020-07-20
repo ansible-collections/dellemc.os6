@@ -85,7 +85,7 @@ os6_aaa:
   aaa_authorization:
       exec:
         - authorization_list_name: aaa
-          authorization_method: radius
+          authorization_method: none
           use_data: local
           state: absent
       network: radius

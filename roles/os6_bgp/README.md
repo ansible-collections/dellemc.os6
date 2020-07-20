@@ -37,14 +37,14 @@ Role variables
 | ``neighbor.type`` | string (required): ipv4,ipv6,peergroup       | Specifies the BGP neighbor type   | os6 |
 | ``neighbor.remote_asn`` | string (required)         | Configures the remote AS number of the BGP neighbor  | os6 |
 | ``neighbor.remote_asn_state`` | string: absent,present\* | Deletes the remote AS number from the peer group if set to absent; supported only when *neighbor.type* is "peergroup" | os6 |
-| ``neighbor.timer`` | string          | Configures neighbor timers (<int> <int>); 5 10, where 5 is the keepalive interval and 10 is the holdtime | os6 |
-| ``neighbor.default_originate`` | boolean: true, false\*     | Configures default originate routes to the BGP neighbor | os6 | 
+| ``neighbor.timer`` | string          | Configures neighbor timers (<int> <int>); 5 10, where 5 is the keepalive interval and 10 is the holdtime, field needs to be left blank to remove the timer configurations | os6 |
+| ``neighbor.default_originate`` | boolean: true, false\*     | Configures default originate routes to the BGP neighbor, field needs to be left blank to remove the default  originate routes | os6 | 
 | ``neighbor.peergroup`` | string          | Configures neighbor to BGP peer-group (configured peer-group name) | os6 |
 | ``neighbor.peergroup_state`` | string: absent,present\* | Deletes the IPv4 BGP neighbor from the peer-group if set to absent | os6 |
 | ``neighbor.admin`` | string: up,down       | Configures the administrative state of the neighbor  | os6 |
 | ``neighbor.src_loopback`` | integer         | Configures the source loopback interface for routing packets | os6  |
 | ``neighbor.src_loopback_state`` | string: absent,present\* | Deletes the source for routing packets if set to absent                 | os6 |
-| ``neighbor.ebgp_multihop`` | integer | Configures the maximum-hop count value allowed in eBGP neighbors that are not directly connected (default 255) | os6 |               
+| ``neighbor.ebgp_multihop`` | integer | Configures the maximum-hop count value allowed in eBGP neighbors that are not directly connected (default 255), field needs to be left blank to remove the maximum hop count value | os6 |               
 | ``neighbor.subnet`` | string (required)         | Configures the passive BGP neighbor to this subnet | os6 |
 | ``neighbor.subnet_state`` | string: absent,present\* | Deletes the subnet range set for dynamic IPv4 BGP neighbor if set to absent            | os6 |
 | ``neighbor.state`` | string: absent,present\* | Deletes the IPv4 BGP neighbor if set to absent | os6 |

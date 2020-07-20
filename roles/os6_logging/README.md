@@ -22,7 +22,7 @@ Role variables
 | ``logging`` | list | Configures the logging server (see ``logging.*``) | os6 |
 | ``logging.ip`` | string (required)         | Configures the IPv4 address for the logging server (A.B.C.D format) | os6 |
 | ``logging.state`` | string: absent,present\*     | Deletes the logging server if set to absent   | os6 |
-| ``source_interface`` | string | Configures the source interface for logging, it can take values as loopback interface, vlan id, out-of-band interface and tunnel id only. | os6 |
+| ``source_interface`` | string | Configures the source interface for logging, it can take values as loopback interface, vlan id, out-of-band interface and tunnel id only, field needs to be left blank to remove the source iterface | os6 |
 
 > **NOTE**: Asterisk (_*_) denotes the default value if none is specified. 
 
