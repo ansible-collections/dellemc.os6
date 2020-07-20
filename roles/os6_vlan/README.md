@@ -22,7 +22,7 @@ Role variables
 
 | Key        | Type                      | Notes                                                   | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``name``             | string                        | Configures the name of the VLAN                    | os6 |
+| ``name``             | string                        | Configures the name of the VLAN, field needs to be left blank to remove the user defined name and assign the default name                    | os6 |
 | ``tagged_members``   | list         | Specifies the list of port members to be tagged to the corresponding VLAN (see ``tagged_members.*``) | os6 |
 | ``tagged_members.port`` | string | Specifies valid device interface names to be tagged for each VLAN | os6 |
 | ``tagged_members.state`` | string: absent,present | Deletes the tagged association for the VLAN if set to absent | os6 |

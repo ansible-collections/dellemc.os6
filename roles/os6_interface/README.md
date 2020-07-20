@@ -32,7 +32,7 @@ Role variables
 | ``ip_type_dynamic`` | boolean: true,false           | Configures IP address DHCP if set to true (*ip_and_mask* is ignored if set to true) | os6 |
 | ``ip_and_mask`` | string | configures the specified IP address to the interface VLAN on os6 devices (192.168.11.1/24 format) | os6 |
 | ``ipv6_and_mask`` | string | configures a specified IP address to the interface VLAN on os6 devices (2001:4898:5808:ffa2::1/126 format) | os6 |
-| ``ipv6_reachabletime``       | integer                       | Configures the reachability time for IPv6 neighbor discovery (0 to 3600000) | os6 |
+| ``ipv6_reachabletime``       | integer                       | Configures the reachability time for IPv6 neighbor discovery (0 to 3600000), field needs to be left blank to remove the reachability time | os6 |
 | ``ip_helper`` | list | Configures DHCP server address objects (see ``ip_helper.*``) | os6 |
 | ``ip_helper.ip`` | string (required)         | Configures the IPv4 address of the DHCP server (A.B.C.D format)  | os6 |
 | ``ip_helper.state`` | string: absent,present\* | Deletes the IP helper address if set to absent           | os6 |

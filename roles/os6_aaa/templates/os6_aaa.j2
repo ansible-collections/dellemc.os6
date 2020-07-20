@@ -70,7 +70,7 @@ os6_aaa:
      auth_list: 
        - name: default
          login_or_enable: login
-         server: tacacs+
+         server: tacacs
          use_password: local
          state: present
        - name: console
@@ -81,7 +81,7 @@ os6_aaa:
   aaa_authorization:
       exec:
           - authorization_list_name: aaa
-            authorization_method: if-authenticated
+            authorization_method: none
             use_data: local
             state: present
       network: radius

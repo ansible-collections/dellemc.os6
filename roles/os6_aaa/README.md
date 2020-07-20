@@ -19,8 +19,8 @@ Role variables
 | ``radius_server``            | dictionary        | Configures the radius server (see ``radius_server.*``) | os6 |
 | ``radius_server.key``        | string (required): 0,7,LINE | Configures the authentication key for the radius server | os6 |
 | ``radius_server.key_string`` | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *radius_server.key* is 7 or 0 | os6 |
-| ``radius_server.retransmit`` | integer           | Configures the number of retransmissions | os6  |
-| ``radius_server.timeout``    | integer           | Configures the timeout for retransmissions | os6  |
+| ``radius_server.retransmit`` | integer           | Configures the number of retransmissions, field needs to be left blank to remove the retransimission configuration for radius server authentication | os6  |
+| ``radius_server.timeout``    | integer           | Configures the timeout for retransmissions, timeout must be an integer in the range of 1 and 30, field needs to be left blank to remove the timeout configurations for radius server authentication | os6  |
 | ``radius_server.host``       | dictionary        | Configures the radius server host (see ``host.*``) | os6  |
 | ``host.ip``                  | string            | Configures the radius server host address | os6  |
 | ``host.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os6  |
@@ -73,13 +73,13 @@ auth (see ``attribute.*``) | os6 |
 | ``aaa_authorization.exec``   | list              | Configures authorization for EXEC (shell) commands (see ``exec.*``) | os6 |
 | ``exec.authorization_list_name`` | string        | Configures named authorization list for EXEC commands | os6  |
 | ``exec.authorization_method`` | string: none         | Configures no authorization of EXEC commands | os6  |
-| ``exec.use_data``            | string: local,tacacs+        | Configures data used for authorization | os6 |
+| ``exec.use_data``            | string: local,tacacs, radius        | Configures data used for authorization | os6 |
 | ``exec.state``               | string: present,absent         | Removes the named authorization list for the EXEC commands if set to absent | os6  |
 | ``aaa_authorization.network``     | string: none,radius,ias        | Configures authorization for network events | os6 |
 | ``aaa_authentication.auth_list`` | list        | Configures named authentication list for hosts (see ``host.*``) | os6 |
 | ``auth_list.name``           | string         | Configures named authentication list | os6 |
 | ``auth_list.login_or_enable`` | string: enable,login         | Configures authentication list for login or enable | os6  |
-| ``auth_list.server``         | string: radius,tacacs+         | Configures AAA to use this list of all server hosts | os6 |
+| ``auth_list.server``         | string: radius,tacacs         | Configures AAA to use this list of all server hosts | os6 |
 | ``auth_list.use_password``   | string: line,local,enable,none         | Configures password to use for authentication | os6 |
 | ``auth_list.state``          | string: present,absent         | Removes the named authentication list if set to absent | os6 |
 | ``aaa_authentication.dot1x``     | string: none,radius,ias        | Configures authentication for dot1x events | os6 |
@@ -140,7 +140,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
             key: 7
             key_string: 9ea8ec421c2e2e5bec757f44205015f6d81e83a4f0aa52fb
             retransmit: 5
-            timeout: 40
+            timeout: 25
             host:
               - ip: 10.0.0.1
                 key: 0
@@ -164,7 +164,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
       aaa_authorization:
           exec:
             - authorization_list_name: aaa
-              authorization_method: if-authenticated
+              authorization_method: none
               use_data: local
               state: present
           network: radius
@@ -176,7 +176,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
               use_password: local
               state: present
             - name: console
-              server: tacacs+
+              server: tacacs
               login_or_enable: login
               use_password: local
               state: present

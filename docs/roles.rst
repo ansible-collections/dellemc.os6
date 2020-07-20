@@ -2,7 +2,7 @@
 Ansible Network Collection Roles for Dell EMC OS6
 ##############################################################
 
-The roles facilitates provisioning of devices running Dell EMC OS6. This document describes each of the roles.
+The roles facilitate provisioning of devices running Dell EMC OS6. This document describes each of the roles.
 
 AAA role
 --------

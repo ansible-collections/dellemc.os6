@@ -18,14 +18,14 @@ Role variables
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``timers`` | dictionary | Configures the LLDP global timer value | os6 |
-| ``timers.interval`` | integer | The interval in seconds to transmit local LLDP data (5 to 32768) | os6 |
-| ``timers.hold`` | integer | The interval multiplier to set local LLDP data TTL (2 to 10) | os6 |
-| ``timers.reinit`` | integer | Configures the reinit value (1-10) | os6 |
-| ``notification_interval`` | integer | Configure minimum interval to send remote data change notifications (5 - 3600) | os6 |
+| ``timers.interval`` | integer | The interval in seconds to transmit local LLDP data (5 to 32768), field needs to be left blank to remove the interval | os6 |
+| ``timers.hold`` | integer | The interval multiplier to set local LLDP data TTL (2 to 10), field needs to be left blank to remove the interval multiplier | os6 |
+| ``timers.reinit`` | integer | Configures the reinit value (1-10), field needs to be left blank to remove the reinit value | os6 |
+| ``notification_interval`` | integer | Configure minimum interval to send remote data change notifications (5 - 3600), field needs to be left blank to remove the minimum interval | os6 |
 | ``advertise`` | dictionary     | Configures LLDP-MED and TLV advertisement at the global level (see ``advertise.*``) | os6 |
 | ``advertise.med`` | dictionary     | Configures MED TLVs advertisement (see ``med_tlv.*``) | os6 |
 | ``med.global_med`` | boolean     | Configures global MED TLVs advertisement | os6 |
-| ``med.fast_start_repeat_count`` | integer | Configures med fast start repeat count value (1 to 10) | os6 |
+| ``med.fast_start_repeat_count`` | integer | Configures med fast start repeat count value (1 to 10), field needs to be left blank to remove the value | os6 |
 | ``med.config_notification`` | boolean | Configure all the ports to send the topology change notification | os6 | 
 | ``local_interface`` | dictionary     | Configures LLDP at the interface level (see ``local_interface.*``) | os6 |
 | ``local_interface.<interface name>`` | dictionary     | Configures LLDP at the interface level (see ``<interface name>.*``)     | os6 |

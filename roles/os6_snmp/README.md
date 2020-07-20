@@ -19,8 +19,8 @@ Role variables
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``snmp_contact`` | string | Configures SNMP contact information  | os6 |
-| ``snmp_location`` | string | Configures SNMP location information | os6 |
+| ``snmp_contact`` | string | Configures SNMP contact information, field needs to be left blank to remove the contact information  | os6 |
+| ``snmp_location`` | string | Configures SNMP location information, field needs to be left blank to remove the location | os6 |
 | ``snmp_community`` | list | Configures SNMP community information (see ``snmp_community.*``) | os6 |
 | ``snmp_community.name`` | string (required)         | Configures the SNMP community string | os6 |
 | ``snmp_community.access_mode`` | string: ro,rw           | Configures access-mode for the community | os6 |

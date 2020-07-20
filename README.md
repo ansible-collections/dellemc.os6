@@ -1,12 +1,9 @@
 # The Ansible Network collection for Dell EMC OS6
 
 ## Collection contents
-
-The OS6 Ansible Network collection includes the Ansible modules, plugins and roles required to work on the Dell EMC Power Switch platforms running Dell EMC OS6. It also includes sample playbooks and documents that illustrates how the collection can be used.
+This collection includes the Ansible modules, plugins and roles required to work on the Dell EMC Power Switch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
 
 ### Ansible modules
-
-The following modules are part of this collection
 
 - **os6_command.py** - Run commands on remote devices running Dell EMC OS6
 
@@ -16,11 +13,13 @@ The following modules are part of this collection
 
 ### Ansible Roles
 
-The roles facilitate provisioning of device running Dell EMC OS6. Some of the roles included in the collection are os6_aaa, os6_bgp, os6_xstp and so on. The docs directory in the collection includes documentation for each of the roles part of the collection.
+Roles facilitate provisioning of device running Dell EMC OS6. These roles explain how to use OS9 and include **os6_aaa**, **os6_bgp**, **os6_xstp** and so on. There are over 15 roles available. The documentation for each role is at [OS6 roles documentation](https://github.com/ansible-collections/dellemc.os6/blob/master/docs/roles.rst)
 
 ### Playbooks
 
-The playbooks directory includes sample playbooks that illustrate the usage of OS6 collections for provisioning device running Dell EMC OS6.
+Sample playbooks are included for provisioning device running Dell EMC OS6.
+
+- [iBGP Example](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) - Example playbook to configure iBGP between two routers with Dell EMC OS6 switches. 
 
 ## Installation
 
@@ -39,7 +38,9 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 ```
 
 ## Dependency
-Ansible version 2.10 or later
+Ansible version **2.10 or later**
+
+> **NOTE**: For Ansible version lower than 2.10, Please use [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html)
 
 ## Sample Playbook
 
@@ -77,3 +78,4 @@ switch2 ansible_host= 100.94.52.38
 
 ```
 
+(c) 2020 Dell Inc. or its subsidiaries. All rights reserved.

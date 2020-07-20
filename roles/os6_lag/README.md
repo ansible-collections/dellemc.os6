@@ -23,8 +23,8 @@ Role variables
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``type``      | string: static,dynamic      | Configures the interface either as a static or dynamic LAG           | os6 |
-| ``min_links`` | integer                       | Configures the minimum number of links in the LAG that must be in *operup* status (1 to 8  os6) | os6 |
-| ``hash`` | integer | Configures the hash value for os6 devices (1 to 7) | os6 |
+| ``min_links`` | integer                       | Configures the minimum number of links in the LAG that must be in *operup* status (1 to 8  os6), field needs to be left blank to remove the minimum number of links | os6 |
+| ``hash`` | integer | Configures the hash value for os6 devices (1 to 7), field needs to be left blank to remove the hash value | os6 |
 | ``channel_members``  | list  | Specifies the list of port members to be associated to the port-channel (see ``channel_members.*``) | os6 |
 | ``channel_members.port`` | string  | Specifies valid os6 interface names to be configured as port-channel members | os6 |
 | ``channel_members.state`` | string: absent,present | Deletes the port member association if set to absent | os6 |
