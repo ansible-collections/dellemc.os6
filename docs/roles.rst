@@ -8,7 +8,7 @@ The roles facilitate provisioning of devices running Dell EMC OS6. This document
 AAA role
 --------
 
-The `os6_aaa <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_aaa/README.md>`_ role facilitates the configuration of Authentication Authorization Acccounting (AAA). It supports the configuration of TACACS and RADIUS server and AAA.
+The `os6_aaa <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_aaa/README.md>`_ role facilitates the configuration of authentication, authorization, and acccounting (AAA). It supports the configuration of TACACS and RADIUS servers and AAA.
 
 
 ACL role
@@ -50,13 +50,13 @@ The `os6_logging <https://github.com/ansible-collections/dellemc.os6/blob/master
 NTP role
 --------
 
-The `os6_ntp <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_ntp/README.md>`_ role facilitates the configuration of network time protocol attributes.
+The `os6_ntp <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_ntp/README.md>`_ role facilitates the configuration of network time protocol (NTP) attributes.
 
 
 QoS role
 --------
 
-The `os6_qos <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_qos/README.md>`_ role facilitates the configuration of quality of service attributes including policy-map and class-map.
+The `os6_qos <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_qos/README.md>`_ role facilitates the configuration of quality of service (QoS) attributes including policy-map and class-map.
 
 
 SNMP role
@@ -93,3 +93,5 @@ xSTP role
 ---------
 
 The `os6_xstp <https://github.com/ansible-collections/dellemc.os6/blob/master/roles/os6_xstp/README.md>`_ role facilitates the configuration of xSTP attributes. This role supports multiple version of spanning-tree protocol (STP), rapid spanning-tree (RSTP) protocol, multiple spanning-tree (MST), and per-VLAN spanning-tree (PVST). This role supports the configuration of bridge priority, enabling and disabling spanning-tree, creating and deleting instances, and mapping virtual LAN (VLAN) to instances.
+
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.
