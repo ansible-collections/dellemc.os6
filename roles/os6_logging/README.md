@@ -1,16 +1,16 @@
 Logging role
 ============
 
-This role facilitates the configuration of global logging attributes, and it supports the configuration of logging servers. This role is abstracted for os6.
+This role facilitates the configuration of global logging attributes, and it supports the configuration of logging servers. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC OS6.
 
-The Logging role requires an SSH connection for connectivity to a Dell EMC Networking device. You can use any of the built-in OS connection variables .
+The Logging role requires an SSH connection for connectivity to a Dell EMC OS6 device. You can use any of the built-in OS connection variables.
 
 
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os6.os6 as a value
-- If the *os6_cfg_generate* variable is set to true, it generates the role configuration commands in a file
+- Role is abstracted using the `ansible_network_os` variable that can take `dellemc.os6.os6` as a value
+- If the `os6_cfg_generate` variable is set to true, it generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
 -  Variables and values are case-sensitive
@@ -22,7 +22,7 @@ Role variables
 | ``logging`` | list | Configures the logging server (see ``logging.*``) | os6 |
 | ``logging.ip`` | string (required)         | Configures the IPv4 address for the logging server (A.B.C.D format) | os6 |
 | ``logging.state`` | string: absent,present\*     | Deletes the logging server if set to absent   | os6 |
-| ``source_interface`` | string | Configures the source interface for logging, it can take values as loopback interface, vlan id, out-of-band interface and tunnel id only, field needs to be left blank to remove the source iterface | os6 |
+| ``source_interface`` | string | Configures the source interface for logging, it can take values as loopback interface, vlan ID, out-of-band interface and tunnel ID only, field needs to be left blank to remove the source iterface | os6 |
 
 > **NOTE**: Asterisk (_*_) denotes the default value if none is specified. 
 
@@ -34,20 +34,22 @@ Ansible Dell EMC Networking roles require connection information to establish co
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
-| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_USER` environment variable value is used  |
 | ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device.  |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used. |
-| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable. |
-| ``ansible_network_os`` | yes      | os6, null\*  | This value is used to load the correct terminal and cliconf plugins to communicate with the remote device. |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
+| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable |
+| ``ansible_network_os`` | yes      | os6, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
 Example playbook
 ----------------
 
-This example uses the *os6_logging* role to completely set up logging servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name. When *os6_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false.
+This example uses the *os6_logging* role to completely set up logging servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with corresponding Dell EMC OS6 name. 
+
+When `os6_cfg_generate` is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false.
 
 **Sample hosts file**
  
@@ -74,7 +76,7 @@ This example uses the *os6_logging* role to completely set up logging servers. I
          state: present
       source_interface: "vlan 10"
 
-**Simple playbook to setup logging - switch1.yaml**
+**Simple playbook to setup logging — switch1.yaml**
 
     - hosts: switch1
       roles:
@@ -84,4 +86,4 @@ This example uses the *os6_logging* role to completely set up logging servers. I
 
     ansible-playbook -i hosts switch1.yaml
 
-(c) 2020 Dell Inc. or its subsidiaries.  All Rights Reserved.
+(c) 2020 Dell Inc. or its subsidiaries. All rights reserved.

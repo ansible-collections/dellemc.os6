@@ -1,13 +1,15 @@
 AAA role
 =======
 
-This role facilitates the configuration of authentication authorization acccounting (AAA). It supports the configuration of RADIUS server and AAA for os6. The AAA role requires an SSH connection for connectivity to a Dell EMC Networking device. You can use any of the built-in OS connection variables .
+This role facilitates the configuration of authentication, authorization, and acccounting (AAA), and supports the configuration of RADIUS and TACACS servers. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC OS6. 
+
+The AAA role requires an SSH connection for connectivity to Dell EMC OS6. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os6.os6 as value
-- If *os6_cfg_generate* is set to true, the variable generates the role configuration commands in a file
+- Role is abstracted using the `ansible_network_os` variable that can take `dellemc.os6.os6` as the value
+- If `os6_cfg_generate` is set to true, the variable generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
 - Variables and values are case-sensitive
@@ -16,57 +18,55 @@ Role variables
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``radius_server``            | dictionary        | Configures the radius server (see ``radius_server.*``) | os6 |
-| ``radius_server.key``        | string (required): 0,7,LINE | Configures the authentication key for the radius server | os6 |
+| ``radius_server``            | dictionary        | Configures the RADIUS server (see ``radius_server.*``) | os6 |
+| ``radius_server.key``        | string (required): 0,7,LINE | Configures the authentication key for the RADIUS server | os6 |
 | ``radius_server.key_string`` | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *radius_server.key* is 7 or 0 | os6 |
-| ``radius_server.retransmit`` | integer           | Configures the number of retransmissions, field needs to be left blank to remove the retransimission configuration for radius server authentication | os6  |
-| ``radius_server.timeout``    | integer           | Configures the timeout for retransmissions, timeout must be an integer in the range of 1 and 30, field needs to be left blank to remove the timeout configurations for radius server authentication | os6  |
-| ``radius_server.host``       | dictionary        | Configures the radius server host (see ``host.*``) | os6  |
-| ``host.ip``                  | string            | Configures the radius server host address | os6  |
+| ``radius_server.retransmit`` | integer           | Configures the number of retransmissions; field to be left blank to remove the retransimission configuration for RADIUS server authentication | os6  |
+| ``radius_server.timeout``    | integer           | Configures the timeout for retransmissions, timeout must be an integer 1 and 30; field needs to be left blank to remove the timeout configurations for RADIUS server authentication | os6  |
+| ``radius_server.host``       | dictionary        | Configures the RADIUS server host (see ``host.*``) | os6  |
+| ``host.ip``                  | string            | Configures the RADIUS server host address | os6  |
 | ``host.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os6  |
 | ``host.key_string``          | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *host.key* is 7 or 0 | os6 |
 | ``host.retransmit``          | integer           | Configures the number of retransmissions | os6 |
 | ``host.auth_port``           | integer           | Configures the authentication port (0 to 65535)  | os6  |
 | ``host.timeout``             | integer           | Configures timeout for retransmissions | os6 |
-| ``host.state``               | string: present,absent         | Removes the radius server host if set to absent | os6  |
-| ``radius_server.acct``       | dictionary        | Configures the radius server acct (see ``host.*``) | os6  |
-| ``acct.ip``                  | string            | Configures the radius server acct address | os6  |
+| ``host.state``               | string: present,absent         | Removes the RADIUS server host if set to absent | os6  |
+| ``radius_server.acct``       | dictionary        | Configures the RADIUS server acct (see ``host.*``) | os6  |
+| ``acct.ip``                  | string            | Configures the RADIUS server acct address | os6  |
 | ``acct.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os6  |
 | ``acct.key_string``          | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *host.key* is 7 or 0 | os6 |
 | ``acct.auth_port`` | integer           | Configures the authentication port (0 to 65535)  | os6  |
-| ``acct.state``               | string: present,absent         | Removes the radius server acct if set to absent | os6  |
-| ``radius_server.auth``       | dictionary        | Configures the radius server auth (see ``auth.*``) | os6 |
-| ``auth.ip``                  | string            | Configures the radius server host address | os6  |
+| ``acct.state``               | string: present,absent         | Removes the RADIUS server acct if set to absent | os6  |
+| ``radius_server.auth``       | dictionary        | Configures the RADIUS server auth (see ``auth.*``) | os6 |
+| ``auth.ip``                  | string            | Configures the RADIUS server host address | os6  |
 | ``auth.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os6  |
 | ``auth.key_string``          | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *host.key* is 7 or 0 | os6 |
-| ``auth.name``                | string (required) | Configures the auth name of the radius servers | os6  |
-| ``auth.usage``               | string (required) | Configures the usage type of the radius servers | os6  |
+| ``auth.name``                | string (required) | Configures the auth name of the RADIUS servers | os6  |
+| ``auth.usage``               | string (required) | Configures the usage type of the RADIUS servers | os6  |
 | ``auth.priority``            | integer           | Configures the number of priority | os6 |
 | ``auth.retransmit``          | integer           | Configures the number of retransmissions | os6 |
 | ``auth.auth_port``           | integer           | Configures the authentication port (0 to 65535)  | os6  |
 | ``auth.timeout``             | integer           | Configures timeout for retransmissions | os6 |
 | ``auth.deadtime``            | integer           | Configures the number of deadtime | os6 |
-| ``auth.attribute``           | dictionary        | Configures the radius server auth (see ``attribute.*``) | os6 |
-| ``attribute.id``             | integer           | Configures the radius server attribute id | os6  |
-auth (see ``attribute.*``) | os6 |
-| ``attribute.type``           | integer            | Configures the radius server attribute type based on id | os6  |
-| ``attribute.state``          | string: present,absent         | Removes the radius server attribute if set to absent | os6  |
+| ``auth.attribute``           | dictionary        | Configures the RADIUS server auth (see ``attribute.*``) | os6 |
+| ``attribute.id``             | integer           | Configures the RADIUS server attribute ID (see ``attribute.*``) | os6  |
+| ``attribute.type``           | integer            | Configures the RADIUS server attribute type based on ID | os6  |
+| ``attribute.state``          | string: present,absent         | Removes the RADIUS server attribute if set to absent | os6  |
 | ``auth.state``               | string: present,absent         | Removes the radius server auth if set to absent | os6  |
-| ``radius_server.attribute``  | dictionary        | Configures the radius server auth (see ``attribute.*``) | os6 |
-| ``attribute.id``             | integer            | Configures the radius server attribute id | os6  |
-auth (see ``attribute.*``) | os6 |
-| ``attribute.type``           | integer            | Configures the radius server attribute type based on id | os6  |
-| ``attribute.state``          | string: present,absent         | Removes the radius server attribute if set to absent | os6  |
-| ``tacacs_server``            | dictionary        | Configures the tacacs server (see ``tacacs_server.*``)| os6 |
-| ``tacacs_server.key``        | string (required): 0,7,LINE           | Configures the authentication key for tacacs server | os6 |
+| ``radius_server.attribute``  | dictionary        | Configures the RADIUS server auth (see ``attribute.*``) | os6 |
+| ``attribute.id``             | integer            | Configures the RADIUS server attribute ID (see ``attribute.*``) | os6  |
+| ``attribute.type``           | integer            | Configures the RADIUS server attribute type based on ID | os6  |
+| ``attribute.state``          | string: present,absent         | Removes the RADIUS server attribute if set to absent | os6  |
+| ``tacacs_server``            | dictionary        | Configures the TACACS server (see ``tacacs_server.*``)| os6 |
+| ``tacacs_server.key``        | string (required): 0,7,LINE           | Configures the authentication key for TACACS server | os6 |
 | ``tacacs_server.key_string`` | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *tacacs_server.key* is 7 or 0 | os6 |
-| ``tacacs_server.host``       | dictionary        | Configures the tacacs server host (see ``host.*``) | os6 |
-| ``host.ip``                  | string            | Configures the tacacs sever host address | os6 |
+| ``tacacs_server.host``       | dictionary        | Configures the TACACS server host (see ``host.*``) | os6 |
+| ``host.ip``                  | string            | Configures the TACACS sever host address | os6 |
 | ``host.key``                 | string (required): 0,7,LINE           | Configures the authentication key | os6 |
 | ``host.key_string``          | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *host.key* is 7 or 0 | os6  |
 | ``host.auth_port``           | integer           | Configures the authentication port (0 to 65535) | os6 |
 | ``host.timeout``             | integer           | Configures the timeout for retransmissions | os6 |
-| ``host.state``               | string: present,absent         | Removes the tacacs server host if set to absent | os6 |
+| ``host.state``               | string: present,absent         | Removes the TACACS server host if set to absent | os6 |
 | ``aaa_accounting``           | dictionary        | Configures accounting parameters (see ``aaa_accounting.*``) | os6 |
 | ``aaa_accounting.dot1x``     | string: none,start-stop,stop-only,wait-start        | Configures accounting for dot1x events | os6 |
 | ``aaa_authorization``        | dictionary        | Configures authorization parameters (see ``aaa_authorization.*``) | os6  |
@@ -83,13 +83,13 @@ auth (see ``attribute.*``) | os6 |
 | ``auth_list.use_password``   | string: line,local,enable,none         | Configures password to use for authentication | os6 |
 | ``auth_list.state``          | string: present,absent         | Removes the named authentication list if set to absent | os6 |
 | ``aaa_authentication.dot1x``     | string: none,radius,ias        | Configures authentication for dot1x events | os6 |
-| ``aaa_server``               | dictionary        | Configures the aaa server (see ``aaa_server.*``) | os6 |
-| ``radius``                   | dictionary        | Configures the radius server (see ``radius.*``) | os6 |
-| ``dynamic_author``           | dictionary        | Configures the radius server (see ``dynamic_author.*``) | os6 |
+| ``aaa_server``               | dictionary        | Configures the AAA server (see ``aaa_server.*``) | os6 |
+| ``radius``                   | dictionary        | Configures the RADIUS server (see ``radius.*``) | os6 |
+| ``dynamic_author``           | dictionary        | Configures the RADIUS server (see ``dynamic_author.*``) | os6 |
 | ``dynamic_author.auth_type`` | string         | Configures the authentication type for the radius server | os6 |
-| ``dynamic_author.client``    | list     | Configures the client for the radius server | os6 |
-| ``client.ip``                | string         | Configures the client ip for the radius server | os6 |
-| ``client.key``               | string (required): 0,7,LINE | Configures the authentication key for the radius server | os6 |
+| ``dynamic_author.client``    | list     | Configures the client for the RADIUS server | os6 |
+| ``client.ip``                | string         | Configures the client IP for the radius server | os6 |
+| ``client.key``               | string (required): 0,7,LINE | Configures the authentication key for the RADIUS server | os6 |
 | ``client.key_string``        | string            | Configures the user key string; variable takes the hidden user key string if value is 7; variable takes the unencrypted user key (clear-text) if value is 0; variable supported only if *radius_server.key* is 7 or 0 | os6 |
 | ``client.state``             | string: present,absent         | Removes the accounting of client if set to absent | os6 |
 | ``dynamic_author.state``     | string: present,absent         | Removes the accounting of client if set to absent | os6 |
@@ -103,11 +103,11 @@ Ansible Dell EMC Networking roles require connection information to establish co
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
-| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_USER` environment variable value is used  |
 | ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device.  |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used. |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used. |
 | ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable. |
 | ``ansible_network_os`` | yes      | os6, null\*  | This value is used to load the correct terminal and cliconf plugins to communicate with the remote device. |
 
@@ -116,9 +116,9 @@ Ansible Dell EMC Networking roles require connection information to establish co
 Example playbook
 ----------------
 
-This example uses the *os6_aaa* role to configure AAA for radius and TACACS servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with the corresponding Dell EMC Networking OS name. 
+This example uses the *os6_aaa* role to configure AAA for RADIUS and TACACS servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with the corresponding Dell EMC OS6 name. 
 
-When *os6_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in the *build_dir* path. By default, it is set to false and it writes a simple playbook that only references the *os6_aaa* role.
+When `os6_cfg_generate` is set to true, the variable generates the configuration commands as a .part file in the *build_dir* path. By default, it is set to false and it writes a simple playbook that only references the *os6_aaa* role.
 
 **Sample hosts file**
 
@@ -197,7 +197,7 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
             
 
 
-**Simple playbook to setup system - switch1.yaml**
+**Simple playbook to setup system — switch1.yaml**
 
     - hosts: switch1
       roles:
@@ -207,4 +207,4 @@ When *os6_cfg_generate* is set to true, the variable generates the configuration
 
     ansible-playbook -i hosts switch1.yaml
 
-(c) 2017-2020 Dell Inc. or its subsidiaries.  All Rights Reserved.
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.
