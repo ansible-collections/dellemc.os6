@@ -1,16 +1,16 @@
 ACL role
 ========
 
-This role facilitates the configuration of an access-control list (ACL). It supports the configuration of different types of ACLs (standard and extended) for both IPv4 and IPv6, and assigns the access-class to the line terminals. This role is abstracted for os6.
+This role facilitates the configuration of an access-control list (ACL). It supports the configuration of different types of ACLs (standard and extended) for both IPv4 and IPv6, and assigns the access-class to the line terminals. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC OS6.
 
-The ACL role requires an SSH connection for connectivity to a Dell EMC Networking device. You can use any of the built-in OS connection variables.
+The ACL role requires an SSH connection for connectivity to a Dell EMC OS6 device. You can use any of the built-in OS connection variables.
 
 
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os6.os6 as a value
-- If *os6_cfg_generate* is set to true, the variable generates the role configuration commands in a file
+- Role is abstracted using the `ansible_network_os` variable that can take `dellemc.os6.os6` as a value
+- If `os6_cfg_generate` is set to true, the variable generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
 - Variables and values are case-sensitive
@@ -29,7 +29,7 @@ Role variables
 | ``entries.seq_number`` | integer (required)  | Specifies the sequence number of the ACL rule | os6 |
 | ``entries.permit`` | boolean (required): true,false         | Specifies the rule to permit packets if set to true; specifies to reject packets if set to false | os6 |
 | ``entries.protocol`` | string (required)       | Specifies the type of protocol or the protocol number to filter | os6 |
-| ``entries.match_condition`` | string (required): any, <srcip>, <dstip>, <srcmask>, <dstmask>        | Specifies the command in string format | os6 |
+| ``entries.match_condition`` | string (required): any, \<srcip>, \<dstip>, \<srcmask>, \<dstmask>        | Specifies the command in string format | os6 |
 | ``entries.state`` | string: absent,present\*   | Deletes the rule from the ACL if set to absent | os6 |
 | ``stage_ingress`` | list           | Configures ingress ACL to the interface (see ``stage_ingress.*``) | os6 |
 | ``stage_ingress.name`` | string (required)        | Configures the ingress ACL filter to the interface with this interface name | os6 |
@@ -46,27 +46,27 @@ Role variables
 Connection variables
 --------------------
 
-Ansible Dell EMC Networking roles require connection information to establish communication with the nodes in inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
+Ansible Dell EMC network roles require connection information to establish communication with the nodes in inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
 
 | Key         | Required | Choices    | Description                                           |
 |-------------|----------|------------|-------------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
-| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_USER` environment variable value is used  |
 | ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device.  |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used. |
-| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable. |
-| ``ansible_network_os`` | yes      | os6, null\*  | This value is used to load the correct terminal and cliconf plugins to communicate with the remote device. |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used. |
+| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable |
+| ``ansible_network_os`` | yes      | os6, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
 > **NOTE**: Asterisk (_*_) denotes the default value if none is specified.
 
 Example playbook
 ----------------
 
-This example uses the *os6_acl* role to configure different types of ACLs (standard and extended) for both IPv4 and IPv6 and assigns the access-class to the line terminals. The example creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with the corresponding Dell EMC networking OS name. 
+This example uses the *os6_acl* role to configure different types of ACLs (standard and extended) for both IPv4 and IPv6 and assigns the access-class to the line terminals. The example creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with the corresponding Dell EMC OS6 name. 
 
-When *os6_cfg_generate* is set to true, it generates the configuration commands as a .part file in the *build_dir* path. By default it is set to false. It writes a simple playbook that only references the *os6_acl* role. 
+When `os6_cfg_generate` is set to true, it generates the configuration commands as a .part file in the *build_dir* path. By default it is set to false. It writes a simple playbook that only references the *os6_acl* role. 
 
 **Sample hosts file**
 
@@ -115,4 +115,4 @@ When *os6_cfg_generate* is set to true, it generates the configuration commands 
 
     ansible-playbook -i hosts switch1.yaml
 
-(c) 2017-2020 Dell Inc. or its subsidiaries.  All Rights Reserved.
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.

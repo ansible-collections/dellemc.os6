@@ -1,48 +1,47 @@
-# The Ansible Network collection for Dell EMC OS6
+# The Ansible Network Collection for Dell EMC OS6
 
-## Collection contents
-This collection includes the Ansible modules, plugins and roles required to work on the Dell EMC Power Switch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
+This collection includes the Ansible modules, plugins and roles required to work on the Dell EMC PowerSwitch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
 
 ### Ansible modules
 
-- **os6_command.py** - Run commands on remote devices running Dell EMC OS6
+- **os6_command.py** — Run commands on remote devices running Dell EMC OS6
 
-- **os6_config.py** - Manage configuration sections on remote devices running Dell EMC OS6
+- **os6_config.py** — Manage configuration sections on remote devices running Dell EMC OS6
 
-- **os6_facts.py** - Collect facts from remote devices running Dell EMC OS6
+- **os6_facts.py** — Collect facts from remote devices running Dell EMC OS6
 
-### Ansible Roles
+### Ansible roles
 
-Roles facilitate provisioning of device running Dell EMC OS6. These roles explain how to use OS9 and include **os6_aaa**, **os6_bgp**, **os6_xstp** and so on. There are over 15 roles available. The documentation for each role is at [OS6 roles documentation](https://github.com/ansible-collections/dellemc.os6/blob/master/docs/roles.rst)
+Roles facilitate provisioning of device running Dell EMC OS6. These roles explain how to use OS9 and include os6_aaa, os6_bgp, os6_xstp, and so on. There are over 15 roles available. The documentation for each role is at [OS6 roles](https://github.com/ansible-collections/dellemc.os6/blob/master/docs/roles.rst).
 
 ### Playbooks
 
 Sample playbooks are included for provisioning device running Dell EMC OS6.
 
-- [iBGP Example](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) - Example playbook to configure iBGP between two routers with Dell EMC OS6 switches. 
+- [iBGP](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) — Example playbook to configure iBGP between two routers with Dell EMC OS6 switches
 
 ## Installation
 
-Use this command to install the latest version of the OS6 collection from Ansible Galaxy:
+Use this command to install the latest version of the OS6 collection from Ansible Galaxy.
 
 ```
 ansible-galaxy collection install dellemc.os6
 
 ```
 
-To install a specific version, a version range identifier must be specified. For example, to install the most recent version that is greater than or equal to 1.0.0 and less than 2.0.0:
+To install a specific version, a version range identifier must be specified. For example, to install the most recent version that is greater than or equal to 1.0.0 and less than 2.0.0.
 
 ```
 ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 
 ```
 
-## Dependency
-Ansible version **2.10 or later**
+## Version compatibility
+Ansible version 2.10 or later.
 
-> **NOTE**: For Ansible version lower than 2.10, Please use [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html)
+> **NOTE**: For Ansible version lower than 2.10, use [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
 
-## Sample Playbook
+## Sample playbook
 
 ```
 
@@ -55,7 +54,7 @@ Ansible version **2.10 or later**
 
 ```
 
-## Sample host_vars/os6_sw1.yaml
+**Sample host_vars/os6_sw1.yaml**
 
 ```
 
@@ -69,7 +68,7 @@ ansible_network_os: dellemc.os6.os6
 
 ```
 
-## Sample inventory.yaml
+**Sample inventory.yaml**
 
 ```
 [os6switches]
@@ -78,5 +77,4 @@ switch2 ansible_host= 100.94.52.38
 
 ```
 
-
-(c) 2020 Dell Inc. or its subsidiaries. All rights reserved.
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.
