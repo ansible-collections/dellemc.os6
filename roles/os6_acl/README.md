@@ -29,7 +29,7 @@ Role variables
 | ``entries.seq_number`` | integer (required)  | Specifies the sequence number of the ACL rule | os6 |
 | ``entries.permit`` | boolean (required): true,false         | Specifies the rule to permit packets if set to true; specifies to reject packets if set to false | os6 |
 | ``entries.protocol`` | string (required)       | Specifies the type of protocol or the protocol number to filter | os6 |
-| ``entries.match_condition``  string (required): any/ \<srcip>/ \<dstip>/ \<srcmask>/\<dstmask>        | Specifies the command in string format | os6 |
+| ``entries.match_condition`` | string (required): any/ \<srcip>/ \<dstip>/ \<srcmask>/\<dstmask>        | Specifies the command in string format | os6 |
 | ``entries.state`` | string: absent,present\*   | Deletes the rule from the ACL if set to absent | os6 |
 | ``stage_ingress`` | list           | Configures ingress ACL to the interface (see ``stage_ingress.*``) | os6 |
 | ``stage_ingress.name`` | string (required)        | Configures the ingress ACL filter to the interface with this interface name | os6 |
