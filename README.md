@@ -1,6 +1,6 @@
 # Ansible Network Collection for Dell EMC OS6
 
-## Collection Content
+## Collection contents
 
 This collection includes the Ansible modules, plugins and roles needed to privision and manage Dell EMC PowerSwitch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
 
