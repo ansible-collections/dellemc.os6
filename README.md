@@ -16,7 +16,7 @@ This collection includes the Ansible modules, plugins and roles needed to privis
 
 These roles facilitate provisioning and administration of devices running Dell EMC OS6. There are over 15 roles available that provide a comprehensive coverage of most OS6 resources, including os6_interface, os6_aaa, os6_bgp, and os6_xstp. The documentation for each role is at [OS6 roles](https://github.com/ansible-collections/dellemc.os6/blob/master/docs/roles.rst).
 
-### Sample use case Playbooks
+### Sample use case playbooks
 
 This collection inlcudes the following sample playbook that illustrate end to end use cases:
 
@@ -60,7 +60,7 @@ Ansible version 2.10 or later.
 
 ```
 
-**Sample host_vars/os6_sw1.yaml**
+**host_vars/os6_sw1.yaml**
 
 ```
 
@@ -84,7 +84,7 @@ os6_vlan:
 
 ```
 
-**Sample inventory.yaml**
+**inventory.yaml**
 
 ```
 
