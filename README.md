@@ -49,7 +49,7 @@ Ansible version 2.10 or later.
 **playbook.yaml**
 
 ```
-- hosts: os6switches
+- hosts: os6_switches
   connection: network_cli
   collections:
     - dellemc.os6
@@ -61,7 +61,7 @@ Ansible version 2.10 or later.
 **host_vars/os6_sw1.yaml**
 
 ```
-hostname: os6switches
+hostname: os6_sw1
 # parameters for connection type network_cli
 ansible_ssh_user: xxxx
 ansible_ssh_pass: xxxx
