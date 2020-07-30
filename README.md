@@ -30,7 +30,6 @@ Use this command to install the latest version of the OS6 collection from Ansibl
 ansible-galaxy collection install dellemc.os6
 
 ```
-
 To install a specific version, a version range identifier must be specified. For example, to install the most recent version that is greater than or equal to 1.0.0 and less than 2.0.0:
 
 ```
@@ -50,7 +49,6 @@ Ansible version 2.10 or later.
 **playbook.yaml**
 
 ```
-
 - hosts: os6switches
   connection: network_cli
   collections:
@@ -63,7 +61,6 @@ Ansible version 2.10 or later.
 **host_vars/os6_sw1.yaml**
 
 ```
-
 hostname: os6switches
 # parameters for connection type network_cli
 ansible_ssh_user: xxxx
@@ -81,20 +78,17 @@ os6_vlan:
       name: "test_vlan2"
       state: absent
 
-
 ```
 
 **inventory.yaml**
 
 ```
-
 os6_sw1 ansible_host= 100.94.51.40
 os6_sw2 ansible_host= 100.94.52.38
 
 [os6switches]
 os6_sw1
 os6_sw2
-
 
 ```
 
