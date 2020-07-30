@@ -42,7 +42,7 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 
 Ansible version 2.10 or later.
 
-> **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
+> **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html)
 
 ## Sample playbook
 
