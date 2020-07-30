@@ -69,24 +69,27 @@ ansible_become: yes
 ansible_become_method: enable
 ansible_network_os: dellemc.os6.os6
 
-# Create vlan100 and delete vlan200
+# Create vlan100 and delete vlan888
 os6_vlan:
     vlan 100:
-      name: "test_vlan1"
+      name: "Blue"
       state: present
     vlan 888:
-      name: "test_vlan2"
       state: absent
+
 
 ```
 
 **inventory.yaml**
 
 ```
+[os6_sw1]
 os6_sw1 ansible_host= 100.94.51.40
+
+[os6_sw2]
 os6_sw2 ansible_host= 100.94.52.38
 
-[os6switches]
+[os6_switches:children]
 os6_sw1
 os6_sw2
 
