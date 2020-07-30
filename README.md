@@ -1,7 +1,7 @@
 # Ansible Network Collection for Dell EMC OS6
 
-### Collection Content
-_____________________________________________________________________________________________________________________________________
+## Collection Content
+
 This collection includes the Ansible modules, plugins and roles needed to privision and manage Dell EMC PowerSwitch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
 
 ### Collection core modules
@@ -23,7 +23,7 @@ This collection inlcudes the following sample playbook that illustrate end to en
   - [iBGP](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) — Example playbook to configure iBGP between two routers
 
 ## Installation
-_____________________________________________________________________________________________
+
 Use this command to install the latest version of the OS6 collection from Ansible Galaxy:
 
 ```
@@ -39,13 +39,13 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 ```
 
 ## Version compatibility
-__________________________________________________________________________________________________________
+
 Ansible version 2.10 or later.
 
 > **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
 
 ## Sample playbook
-_____________________________________________________________________________________________________________________
+
 
 **playbook.yaml**
 
