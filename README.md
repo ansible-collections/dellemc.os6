@@ -1,35 +1,36 @@
-# The Ansible Network Collection for Dell EMC OS6
+# Ansible Network Collection for Dell EMC OS6
 
-This collection includes the Ansible modules, plugins and roles required to work on the Dell EMC PowerSwitch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
+## Collection contents
 
-### Ansible modules
+This collection includes the Ansible modules, plugins and roles needed to privision and manage Dell EMC PowerSwitch platforms running Dell EMC OS6. Sample playbooks and documentation are also included to show how the collection can be used.
 
-- **os6_command.py** — Run commands on remote devices running Dell EMC OS6
+### Collection core modules
 
-- **os6_config.py** — Manage configuration sections on remote devices running Dell EMC OS6
+- **os6_command.py** — Run commands on devices running OS6
 
-- **os6_facts.py** — Collect facts from remote devices running Dell EMC OS6
+- **os6_config.py** — Manage configuration on devices running OS6
 
-### Ansible roles
+- **os6_facts.py** — Collect facts from devices running OS6
 
-Roles facilitate provisioning of device running Dell EMC OS6. These roles explain how to use OS9 and include os6_aaa, os6_bgp, os6_xstp, and so on. There are over 15 roles available. The documentation for each role is at [OS6 roles](https://github.com/ansible-collections/dellemc.os6/blob/master/docs/roles.rst).
+### Collection roles
 
-### Playbooks
+These roles facilitate provisioning and administration of devices running Dell EMC OS6. There are over 15 roles available that provide a comprehensive coverage of most OS6 resources, including os6_interface, os6_aaa, os6_bgp, and os6_xstp. The documentation for each role is at [OS6 roles](https://github.com/ansible-collections/dellemc.os6/blob/master/docs/roles.rst).
 
-Sample playbooks are included for provisioning device running Dell EMC OS6.
+### Sample use case playbooks
 
-- [iBGP](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) — Example playbook to configure iBGP between two routers with Dell EMC OS6 switches
+This collection inlcudes the following sample playbook that illustrate end to end use cases:
+
+  - [iBGP](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) — Example playbook to configure iBGP between two routers
 
 ## Installation
 
-Use this command to install the latest version of the OS6 collection from Ansible Galaxy.
+Use this command to install the latest version of the OS6 collection from Ansible Galaxy:
 
 ```
 ansible-galaxy collection install dellemc.os6
 
 ```
-
-To install a specific version, a version range identifier must be specified. For example, to install the most recent version that is greater than or equal to 1.0.0 and less than 2.0.0.
+To install a specific version, a version range identifier must be specified. For example, to install the most recent version that is greater than or equal to 1.0.0 and less than 2.0.0:
 
 ```
 ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
@@ -37,14 +38,17 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 ```
 
 ## Version compatibility
+
 Ansible version 2.10 or later.
 
-> **NOTE**: For Ansible version lower than 2.10, use [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
+> **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html)
 
 ## Sample playbook
 
-```
 
+**playbook.yaml**
+
+```
 - hosts: os6switches
   connection: network_cli
   collections:
@@ -54,10 +58,9 @@ Ansible version 2.10 or later.
 
 ```
 
-**Sample host_vars/os6_sw1.yaml**
+**host_vars/os6_sw1.yaml**
 
 ```
-
 hostname: os6switches
 # parameters for connection type network_cli
 ansible_ssh_user: xxxx
@@ -66,14 +69,26 @@ ansible_become: yes
 ansible_become_method: enable
 ansible_network_os: dellemc.os6.os6
 
+# Create vlan100 and delete vlan200
+os6_vlan:
+    vlan 100:
+      name: "test_vlan1"
+      state: present
+    vlan 888:
+      name: "test_vlan2"
+      state: absent
+
 ```
 
-**Sample inventory.yaml**
+**inventory.yaml**
 
 ```
+os6_sw1 ansible_host= 100.94.51.40
+os6_sw2 ansible_host= 100.94.52.38
+
 [os6switches]
-switch1 ansible_host= 100.94.51.40
-switch2 ansible_host= 100.94.52.38
+os6_sw1
+os6_sw2
 
 ```
 
