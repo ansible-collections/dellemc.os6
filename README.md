@@ -41,7 +41,7 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 
 Ansible version 2.10 or later.
 
-> **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html)
+> **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
 
 ## Sample playbook
 
@@ -62,7 +62,7 @@ Ansible version 2.10 or later.
 
 ```
 hostname: os6_sw1
-# parameters for connection type network_cli
+# Parameters for connection type network_cli
 ansible_ssh_user: xxxx
 ansible_ssh_pass: xxxx
 ansible_become: yes
@@ -76,7 +76,6 @@ os6_vlan:
       state: present
     vlan 888:
       state: absent
-
 
 ```
 
