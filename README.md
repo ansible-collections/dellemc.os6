@@ -77,6 +77,7 @@ os6_vlan:
     vlan 888:
       state: absent
 
+
 ```
 
 **inventory.yaml**
