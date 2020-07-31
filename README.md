@@ -20,7 +20,7 @@ These roles facilitate provisioning and administration of devices running Dell E
 
 This collection inlcudes the following sample playbook that illustrate end to end use cases:
 
-  - [iBGP](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/README.md) — Example playbook to configure iBGP between two routers
+  - [iBGP](https://github.com/ansible-collections/dellemc.os6/blob/master/playbooks/ibgp/README.md) — Example playbook to configure iBGP between two routers
 
 ## Installation
 
