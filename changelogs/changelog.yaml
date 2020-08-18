@@ -42,7 +42,7 @@ releases:
     - description: Facilitates the configuration of  global SNMP attributes.
       name: os6_snmp
       namespace: ''
-    - description: Facilitates the configuration of hostname and hashing algorithm.
+    - description: Facilitates the configuration of hostname and enable password.
       name: os6_system
       namespace: ''
     - description: Facilitates the configuration of global system user attributes.
