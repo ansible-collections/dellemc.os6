@@ -1,0 +1,72 @@
+ancestor: null
+releases:
+  1.0.0:
+    modules:
+    - description: Run commands on devices running Dell EMC os6.
+      name: os6_command
+      namespace: ''
+    - description:  Manage configuration on devices running os6.
+      name: os6_config
+      namespace: ''
+    - description: Collect facts from devices running os6.
+      name: os6_facts
+      namespace: ''
+    roles:
+    - description: Facilitates the configuration of Authentication Authorization and Accounting (AAA), TACACS and RADIUS server.
+      name: os6_aaa
+      namespace: ''
+    - description: Facilitates the configuration of Access Control lists.
+      name: os6_acl
+      namespace: ''
+    - description: Facilitates the configuration of border gateway protocol (BGP) attributes.
+      name: os6_bgp
+      namespace: ''
+    - description: Facilitates the configuration of interface attributes.
+      name: os6_interface
+      namespace: ''
+    - description: Facilitates the configuration of link aggregation group (LAG) attributes. 
+      name: os6_lag
+      namespace: ''
+    - description: Facilitates the configuration of link layer discovery protocol (LLDP) attributes at global and interface level.
+      name: os6_lldp
+      namespace: ''
+    - description: Facilitates the configuration of global logging attributes and logging servers.
+      name: os6_logging
+      namespace: ''
+    - description: Facilitates the configuration of network time protocol (NTP) attributes.
+      name: os6_ntp
+      namespace: ''
+    - description: Facilitates the configuration of quality of service attributes including policy-map and class-map.
+      name: os6_qos
+      namespace: ''
+    - description: Facilitates the configuration of  global SNMP attributes.
+      name: os6_snmp
+      namespace: ''
+    - description: Facilitates the configuration of hostname and hashing algorithm.
+      name: os6_system
+      namespace: ''
+    - description: Facilitates the configuration of global system user attributes.
+      name: os6_users
+      namespace: ''
+    - description: Facilitates the configuration of virtual LAN (VLAN) attributes.
+      name: os6_vlan
+      namespace: ''
+    - description: Facilitates the configuration of virtual router redundancy protocol (VRRP) attributes.
+      name: os6_vrrp
+      namespace: ''
+    - description: Facilitates the configuration of xSTP attributes.
+      name: os6_xstp
+      namespace: ''
+    release_date: '2020-07-31'
+  1.0.1:
+    changes:
+      release_summary: Updated documentation review comments
+    fragments:
+    - 1.0.1.yaml
+    release_date: '2020-08-04'
+  1.0.2:
+    changes:
+      release_summary: Added changelogs.
+    fragments:
+    - 1.0.2.yaml
+    release_date: '2020-08-18'
