@@ -43,7 +43,7 @@ New Roles
 - os6_ntp - Facilitates the configuration of network time protocol (NTP) attributes.
 - os6_qos - Facilitates the configuration of quality of service attributes including policy-map and class-map.
 - os6_snmp - Facilitates the configuration of  global SNMP attributes.
-- os6_system - Facilitates the configuration of hostname and hashing algorithm.
+- os6_system - Facilitates the configuration of hostname and enable password.
 - os6_users - Facilitates the configuration of global system user attributes.
 - os6_vlan - Facilitates the configuration of virtual LAN (VLAN) attributes.
 - os6_vrrp - Facilitates the configuration of virtual router redundancy protocol (VRRP) attributes.
