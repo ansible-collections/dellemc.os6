@@ -75,13 +75,15 @@ policy-map {{ vars.name }}
               {% if instance.name is defined and instance.name %}
                 {% if instance.state is defined and instance.state == "absent"%}
 no class {{ instance.name }}
-                {% elif instance.policy is defined and instance.policy %}
-                  {% for policy in instance.policy %}
+                {% else %}
 class {{ instance.name }}
+                {% endif %}
+                {% if instance.policy is defined and instance.policy %}
+                  {% for policy in instance.policy %}
 {{ policy }}
-exit
                   {% endfor %}
                 {% endif %}
+exit
               {% endif %}
             {% endfor %}
           {% endif %}
