@@ -3,7 +3,7 @@
   gather_facts: no
   become: yes
   become_method: enable
-  connection: ansible.netcommon.network_cli
+  connection: network_cli
   collections:
     - dellemc.os6
   roles:
