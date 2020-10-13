@@ -39,7 +39,7 @@ ansible-galaxy collection install 'dellemc.os6:>=1.0.0,<2.0.0'
 
 ## Version compatibility
 
-* Ansible version 2.10 or later.
+* Ansible version 2.10 or higher
 * Python 2.7 or higher and Python 3.5 or higher
 
 > **NOTE**: For Ansible versions lower than 2.10, use the legacy [dellos6 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os6-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
