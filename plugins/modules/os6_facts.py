@@ -163,9 +163,9 @@ class Default(FactsBase):
         match = re.search(r'\S+\s(\S+)', data, re.M)
         if match:
             return match.group(1)
-
+    
     def parse_model(self, data):
-        match = re.search(r'System Model ID(.+)\s([A-Z0-9]*)\n', data, re.M)
+        match = re.search(r'System Model ID(.+)\s([-A-Z0-9]*)\n', data, re.M)
         if match:
             return match.group(2)
 
@@ -286,11 +286,12 @@ class Interfaces(FactsBase):
             if intf not in facts:
                 facts[intf] = list()
             fact = dict()
-            fact['port'] = self.parse_lldp_port(en.split()[3])
-            if (len(en.split()) > 4):
-                fact['host'] = self.parse_lldp_host(en.split()[4])
-            else:
-                fact['host'] = "Null"
+            if len(en.split()) > 2:
+                fact['port'] = self.parse_lldp_port(en.split()[3])
+                if (len(en.split()) > 4):
+                    fact['host'] = self.parse_lldp_host(en.split()[4])
+                else:
+                    fact['host'] = "Null"
             facts[intf].append(fact)
 
         return facts
@@ -300,7 +301,7 @@ class Interfaces(FactsBase):
         for line in data.split('\n'):
             if len(line) == 0:
                 continue
-            match = re.match(r'Interface Name(.+)\s([A-Za-z0-9/]*)', line)
+            match = re.match(r'Interface Name(.+)\s([A-Za-z0-9/]*)', line, re.IGNORECASE)
             if match:
                 key = match.group(2)
                 parsed[key] = line
@@ -309,18 +310,20 @@ class Interfaces(FactsBase):
         return parsed
 
     def parse_description(self, key, desc):
-        desc, desc_next = desc.split('--------- --------------- ------ ------- ---- ------ ----- -- -------------------')
+        desc = re.split(r'[-+\s](?:-+\s)[-+\s].*', desc, maxsplit=1)
+        desc_next = desc[1]
         if desc_next.find('Oob') > 0:
             desc_val, desc_info = desc_next.split('Oob')
         elif desc_next.find('Port') > 0:
             desc_val, desc_info = desc_next.split('Port')
-        for en in desc_val.splitlines():
-            if key in en:
-                match = re.search(r'^(\S+)\s+(\S+)', en)
-                if match.group(2) in ['Full', 'N/A']:
-                    return "Null"
-                else:
-                    return match.group(2)
+        if desc_val:
+            for en in desc_val.splitlines():
+                if key in en:
+                    match = re.search(r'^(\S+)\s+(\S+)', en)
+                    if match.group(2) in ['Full', 'N/A']:
+                        return "Null"
+                    else:
+                        return match.group(2)
 
     def parse_macaddress(self, data):
         match = re.search(r'Burned In MAC Address(.+)\s([A-Z0-9.]*)\n', data)
