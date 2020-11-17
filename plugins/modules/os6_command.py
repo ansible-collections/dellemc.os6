@@ -35,7 +35,7 @@ options:
         module is not returned until the condition is satisfied or
         the number of retries has expired.
     type: list
-    elements: dict
+    elements: str
     required: true
   wait_for:
     description:
@@ -165,7 +165,7 @@ def main():
     """
     argument_spec = dict(
         # { command: <str>, prompt: <str>, response: <str> }
-        commands=dict(type='list', elements='dict', required=True),
+        commands=dict(type='list', elements='str', required=True),
 
         wait_for=dict(type='list', elements='str'),
         match=dict(default='all', choices=['all', 'any']),

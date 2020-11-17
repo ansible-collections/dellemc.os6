@@ -76,4 +76,12 @@ releases:
     fragments:
     - 1.0.3.yaml
     release_date: '2020-10-09'
+  1.0.4:
+    changes:
+      bugfixes:
+        - Fix issue in using list of strings for `commands` argument for `os6_command` module
+        - Fix issue in using "os6_facts" module for non-legacy n-series platofrms
+    fragments:
+      - 1.0.4.yaml
+    release_date: "2020-11-17"
   
