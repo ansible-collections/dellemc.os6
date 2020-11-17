@@ -4,6 +4,15 @@ Ansible Network Collection for Dell EMC OS6 Release Notes
 
 .. contents:: Topics
 
+v1.0.4
+======
+
+Bugfixes
+---------------
+
+- Fix issue in using list of strings for `commands` argument for `os6_command` module
+- Fix issue in using "os6_facts" module for non-legacy n-series platofrms
+
 v1.0.3
 ======
 
