@@ -163,7 +163,7 @@ class Default(FactsBase):
         match = re.search(r'\S+\s(\S+)', data, re.M)
         if match:
             return match.group(1)
-    
+
     def parse_model(self, data):
         match = re.search(r'System Model ID(.+)\s([-A-Z0-9]*)\n', data, re.M)
         if match:
@@ -293,7 +293,6 @@ class Interfaces(FactsBase):
                 else:
                     fact['host'] = "Null"
             facts[intf].append(fact)
-
         return facts
 
     def parse_interfaces(self, data):
