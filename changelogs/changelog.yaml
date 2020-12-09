@@ -84,4 +84,12 @@ releases:
     fragments:
       - 1.0.4.yaml
     release_date: "2020-11-17"
-  
+  1.0.5:
+    changes:
+      bugfixes:
+        - config module fix to handle issues faced while parsing running config and fixing idempotency issue for banner config
+        - command module change to keep similar changes across all dell networking OSs
+        - terminal plugin fix to send "terminal length 0" command
+    fragments:
+          - 1.0.5.yaml
+    release_date: "2020-12-09"  
