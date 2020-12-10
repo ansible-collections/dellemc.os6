@@ -4,6 +4,16 @@ Ansible Network Collection for Dell EMC OS6 Release Notes
 
 .. contents:: Topics
 
+v1.0.5
+======
+
+Bugfixes
+---------------
+
+- config module fix to handle issues faced while parsing running config and fixing idempotency issue for banner config
+- command module change to keep similar changes across all dell networking OSs
+- terminal plugin fix to send "terminal length 0" command
+
 v1.0.4
 ======
 

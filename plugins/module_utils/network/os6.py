@@ -138,7 +138,7 @@ def get_sublevel_config(running_config, module):
 
 def os6_parse(lines, indent=None, comment_tokens=None):
     sublevel_cmds = [
-        re.compile(r'^vlan !(priority).*$'),
+        re.compile(r'^vlan\s[\d,-]+.*$'),
         re.compile(r'^stack.*$'),
         re.compile(r'^interface.*$'),
         re.compile(r'datacenter-bridging.*$'),
@@ -150,23 +150,23 @@ def os6_parse(lines, indent=None, comment_tokens=None):
         re.compile(r'ipv6 (dhcp pool|router).*$'),
         re.compile(r'mail-server.*$'),
         re.compile(r'vpc domain.*$'),
-        re.compile(r'router.*$'),
+        re.compile(r'router\s.*$'),
         re.compile(r'route-map.*$'),
         re.compile(r'policy-map.*$'),
         re.compile(r'class-map match-all.*$'),
         re.compile(r'captive-portal.*$'),
         re.compile(r'admin-profile.*$'),
         re.compile(r'link-dependency group.*$'),
-        re.compile(r'banner motd.*$'),
         re.compile(r'openflow.*$'),
         re.compile(r'support-assist.*$'),
         re.compile(r'template.*$'),
         re.compile(r'address-family.*$'),
         re.compile(r'spanning-tree mst configuration.*$'),
         re.compile(r'logging (?!.*(cli-command|buffered|console|email|facility|file|monitor|protocol|snmp|source-interface|traps|web-session)).*$'),
-        re.compile(r'(radius-server|tacacs-server) host.*$')]
+        re.compile(r'radius server (?!.*(attribute|dead-criteria|deadtime|timeout|key|load-balance|retransmit|source-interface|source-ip|vsa)).*$'),
+        re.compile(r'(tacacs-server) host.*$')]
 
-    childline = re.compile(r'^exit$')
+    childline = re.compile(r'^exit\s*$')
     config = list()
     parent = list()
     children = []
