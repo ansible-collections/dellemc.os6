@@ -8,14 +8,14 @@ os6_vlan:
     vlan 2:
       name: "os6vlan"
       tagged_members:
-        - port: TenGigabitEthernet 1/0/1
+        - port: Te1/0/1
           state: present
-        - port: TenGigabitEthernet 1/0/2
+        - port: Ten1/0/2
           state: absent
       untagged_members:
-        - port: TenGigabitEthernet 1/0/3
+        - port: Te1/0/3
           state: present
-        - port: TenGigabitEthernet 1/0/4
+        - port: Ten1/0/4
           state: absent
       state: present
 

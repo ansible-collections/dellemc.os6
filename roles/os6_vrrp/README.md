@@ -14,7 +14,7 @@ Role variables
 - Setting an empty value for any variable negates the corresponding configuration
 - `os6_vrrp` (dictionary) holds a dictionary with the interface name key
 - Interface name can correspond to any of the valid os6 interface with a unique interface identifier name
-- Physical interfaces names must be in *<interfacename> <tuple>* format (for example *FortyGigabitEthernet 1/0/1*)
+- Physical interfaces names must be in *<interfacename> <tuple>* format (for example *Fo1/0/1*)
 - Variables and values are case-sensitive
 
 | Key        | Type                      | Description                                             | Support               |

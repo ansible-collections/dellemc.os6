@@ -77,10 +77,10 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
         vlan 100:
           name: "Mgmt Network"
           tagged_members:
-            - port: TenGigabitEthernet 1/0/30
+            - port: Te1/0/30
               state: absent
           untagged_members:
-            - port: FortyGigabitEthernet 1/0/14
+            - port: Fo1/0/14
               state: present
           state: present
 
