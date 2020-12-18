@@ -276,15 +276,18 @@ def get_running_config(module):
 
 
 def load_banners(module, banners):
+    result_banners = []
     exec_command(module, 'configure terminal')
     for each in banners:
-        delimiter = '"'
-        cmdline = ""
-        for key, value in each.items():
-            cmdline = key + " " + delimiter + value + delimiter
-            for cmd in cmdline.split("\n"):
-                rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
+         delimiter = '"'
+         cmdline = ""
+         for key, value in each.items():
+             cmdline = key + " " + delimiter + value + delimiter
+             for cmd in cmdline.split("\n"):
+                 rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
+             result_banners.append(cmdline)
     exec_command(module, 'end')
+    return result_banners
 
 
 def main():
@@ -377,14 +380,16 @@ def main():
                 if commands:
                     load_config(module, commands)
                 if banners:
-                    load_banners(module, banners)
+                    result_banners = load_banners(module, banners)
+                else: 
+                    result_banners = []
 
             result['changed'] = True
             result['commands'] = commands
             result['updates'] = commands if commands else []
-            result['banners'] = banners
+            result['banners'] = result_banners
             if result['banners']:
-                result['updates'].extend(banners)
+                result['updates'].extend(result_banners)
 
     if module.params['save']:
         result['changed'] = True
