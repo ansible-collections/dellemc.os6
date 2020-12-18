@@ -93,7 +93,7 @@ releases:
     fragments:
           - 1.0.5.yaml
     release_date: "2020-12-09"  
-    1.0.6:
+  1.0.6:
     changes:
       bugfixes:
         - module utils fix for exit handling in multilevel parent commands 

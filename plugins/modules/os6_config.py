@@ -213,6 +213,7 @@ from ansible.module_utils.six import iteritems
 from ansible.module_utils.connection import exec_command
 from ansible.module_utils._text import to_bytes
 
+
 def get_candidate(module):
     candidate = NetworkConfig(indent=0)
     banners = {}
@@ -230,6 +231,7 @@ def get_candidate(module):
             lines, banners = extract_banners(module.params['lines'])
             candidate.add(lines, parents=parents)
     return candidate, banners
+
 
 def extract_banners(config):
     flag = False
@@ -256,12 +258,14 @@ def extract_banners(config):
         config = config.split("\n")
     return (config, banners)
 
+
 def diff_banners(want, have):
     candidate = {}
     for key, value in iteritems(want):
         if value != have.get(key):
             candidate[key] = value
     return candidate
+
 
 def get_running_config(module):
     contents = module.params['config']
@@ -270,16 +274,18 @@ def get_running_config(module):
     contents, banners = extract_banners(contents)
     return contents, banners
 
+
 def load_banners(module, banners):
     exec_command(module, 'configure terminal')
     for each in banners:
-         delimiter = '"'
-         cmdline = ""
-         for key, value in each.items():
-             cmdline = key + " " + delimiter + value + delimiter
-             for cmd in cmdline.split("\n"):
-                 rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
+      delimiter = '"'
+      cmdline = ""
+      for key, value in each.items():
+          cmdline = key + " " + delimiter + value + delimiter
+          for cmd in cmdline.split("\n"):
+              rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
     exec_command(module, 'end')
+
 
 def main():
     backup_spec = dict(

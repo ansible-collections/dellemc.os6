@@ -68,6 +68,7 @@ os6_argument_spec = {
 def check_args(module, warnings):
     pass
 
+
 def get_connection(module):
     if hasattr(module, "_os6_connection"):
         return module._os6_connection
@@ -81,6 +82,7 @@ def get_connection(module):
 
     return module._os6_connection
 
+
 def get_capabilities(module):
     if hasattr(module, "_os6_capabilities"):
         return module._os6_capabilities
@@ -90,6 +92,7 @@ def get_capabilities(module):
         module.fail_json(msg=to_text(exc, errors="surrogate_then_replace"))
     module._os6_capabilities = json.loads(capabilities)
     return module._os6_capabilities
+
 
 def get_config(module, flags=None):
     flags = [] if flags is None else flags
@@ -120,6 +123,7 @@ def to_commands(module, commands):
     transform = ComplexList(spec, module)
     return transform(commands)
 
+
 def run_commands(module, commands, check_rc=True):
     responses = list()
     commands = to_commands(module, to_list(commands))
@@ -131,6 +135,7 @@ def run_commands(module, commands, check_rc=True):
         responses.append(to_text(out, errors='surrogate_or_strict'))
     return responses
 
+
 def load_config(module, commands):
     rc, out, err = exec_command(module, 'configure terminal')
     if rc != 0:
@@ -139,11 +144,11 @@ def load_config(module, commands):
     for command in to_list(commands):
         if command == 'end':
             continue
-#        cmd = {'command': command, 'prompt': WARNING_PROMPTS_RE, 'answer': 'yes'}
         rc, out, err = exec_command(module, command)
         if rc != 0:
             module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), command=command, rc=rc)
     exec_command(module, 'end')
+
 
 def get_sublevel_config(running_config, module):
     contents = list()
@@ -195,7 +200,6 @@ def os6_parse(lines, indent=None, comment_tokens=None):
     children = []
     parent_match = False
     for line in str(lines).split('\n'):
-        f.write("line "+str(line)+"\n")
         text = str(re.sub(r'([{};])', '', line)).strip()
         cfg = ConfigLine(text)
         cfg.raw = line
@@ -215,7 +219,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
                 if children:
                     children.insert(len(parent) - 1, [])
                     children[len(parent) - 2].append(cfg)
-                if not children and len(parent)>1:
+                if not children and len(parent) > 1:
                     configlist = [cfg]
                     children.append(configlist)
                     children.insert(len(parent)-1, [])
