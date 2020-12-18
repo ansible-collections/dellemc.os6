@@ -4,6 +4,17 @@ Ansible Network Collection for Dell EMC OS6 Release Notes
 
 .. contents:: Topics
 
+v1.0.6
+======
+
+Bugfixes
+---------------
+
+- module utils fix for exit handling in multilevel parent commands 
+- config module fix to handle multiline banner
+- terminal plugin fix to handle error reported by management access lists
+
+
 v1.0.5
 ======
 
