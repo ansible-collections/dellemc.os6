@@ -8,8 +8,8 @@ os6_lag:
       hash: 7
       min_links: 3
       channel_members:
-        - port: TenGigabitEthernet 1/0/1
+        - port: Te1/0/1
           state: absent
-        - port: TenGigabitEthernet 1/0/2
+        - port: Te1/0/2
           state: present
       state: present

@@ -77,9 +77,9 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
           hash: 7
           min_links: 3
           channel_members:
-            - port: FortyGigabitEthernet 4/0/1
+            - port: Fo4/0/1
               state: present
-            - port: FortyGigabitEthernet 4/0/1
+            - port: Fo4/0/1
               state: present
           state: present
 

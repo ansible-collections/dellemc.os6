@@ -59,7 +59,7 @@ os6_qos:
         - name: DATA-TRAFFIC
           policy:
             - assign-queue 1
-            - redirect GigabitEthernet 1/0/3
+            - redirect Gi1/0/3
             - police-simple 512000  64 conform-action set-cos-transmit 5 violate-action drop
       state: present
     - name: QoS_Out
@@ -68,6 +68,6 @@ os6_qos:
         - name: DATA-TRAFFIC
           policy:
             - assign-queue 6
-            - redirect GigabitEthernet 1/0/3
+            - redirect Gi1/0/3
             - police-simple 512000  64 conform-action set-cos-transmit 5 violate-action drop
       state: present

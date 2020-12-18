@@ -16,12 +16,12 @@ os6_vlan:
       default_vlan: False
       name: "os6vlan"
       untagged_members:
-        - port: TenGigabitEthernet 7/0/1
+        - port: Te7/0/1
           state: present
       state: present
 
 os6_interface:
-    TenGigabitEthernet 7/0/1:
+    Te7/0/1:
       desc: "bgp"
       admin: up
       portmode: access

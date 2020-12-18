@@ -1,6 +1,6 @@
 namespace: dellemc
 name: os6
-version: 1.0.5
+version: 1.0.6
 readme: README.md
 authors:
 - Komal Patil <Komal_uttamrao_Patil@dell.com>

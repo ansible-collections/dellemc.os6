@@ -33,12 +33,14 @@ from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
 import re
-
+import json
 from ansible.module_utils._text import to_text
 from ansible.module_utils.basic import env_fallback
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.utils import to_list, ComplexList
 from ansible.module_utils.connection import exec_command
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.config import NetworkConfig, ConfigLine, ignore_line
+from ansible.module_utils._text import to_bytes
+from ansible.module_utils.connection import Connection, ConnectionError
 
 _DEVICE_CONFIGS = {}
 
@@ -67,6 +69,31 @@ def check_args(module, warnings):
     pass
 
 
+def get_connection(module):
+    if hasattr(module, "_os6_connection"):
+        return module._os6_connection
+
+    capabilities = get_capabilities(module)
+    network_api = capabilities.get("network_api")
+    if network_api in ["cliconf"]:
+        module._os6_connection = Connection(module._socket_path)
+    else:
+        module.fail_json(msg="Invalid connection type %s" % network_api)
+
+    return module._os6_connection
+
+
+def get_capabilities(module):
+    if hasattr(module, "_os6_capabilities"):
+        return module._os6_capabilities
+    try:
+        capabilities = Connection(module._socket_path).get_capabilities()
+    except ConnectionError as exc:
+        module.fail_json(msg=to_text(exc, errors="surrogate_then_replace"))
+    module._os6_capabilities = json.loads(capabilities)
+    return module._os6_capabilities
+
+
 def get_config(module, flags=None):
     flags = [] if flags is None else flags
 
@@ -89,7 +116,9 @@ def to_commands(module, commands):
     spec = {
         'command': dict(key=True),
         'prompt': dict(),
-        'answer': dict()
+        'answer': dict(),
+        'sendonly': dict(),
+        'newline': dict()
     }
     transform = ComplexList(spec, module)
     return transform(commands)
@@ -115,7 +144,6 @@ def load_config(module, commands):
     for command in to_list(commands):
         if command == 'end':
             continue
-#        cmd = {'command': command, 'prompt': WARNING_PROMPTS_RE, 'answer': 'yes'}
         rc, out, err = exec_command(module, command)
         if rc != 0:
             module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), command=command, rc=rc)
@@ -145,7 +173,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
         re.compile(r'line (console|telnet|ssh).*$'),
         re.compile(r'ip ssh !(server).*$'),
         re.compile(r'ip dhcp pool.*$'),
-        re.compile(r'ip vrf !(forwarding).*$'),
+        re.compile(r'ip vrf (?!forwarding).*$'),
         re.compile(r'(ip|mac|management|arp) access-list.*$'),
         re.compile(r'ipv6 (dhcp pool|router).*$'),
         re.compile(r'mail-server.*$'),
@@ -172,6 +200,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
     children = []
     parent_match = False
     for line in str(lines).split('\n'):
+        line = str(line).strip()
         text = str(re.sub(r'([{};])', '', line)).strip()
         cfg = ConfigLine(text)
         cfg.raw = line
@@ -191,6 +220,10 @@ def os6_parse(lines, indent=None, comment_tokens=None):
                 if children:
                     children.insert(len(parent) - 1, [])
                     children[len(parent) - 2].append(cfg)
+                if not children and len(parent) > 1:
+                    configlist = [cfg]
+                    children.append(configlist)
+                    children.insert(len(parent) - 1, [])
                 parent_match = True
                 continue
         # handle exit
@@ -237,7 +270,7 @@ class NetworkConfig(NetworkConfig):
                         if item._parents == diff_item._parents:
                             diff.append(item)
                             break
-                    else:
+                    elif [e for e in item._parents if e == diff_item]:
                         diff.append(item)
                         break
             elif item not in other:

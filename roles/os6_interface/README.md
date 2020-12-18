@@ -14,7 +14,7 @@ Role variables
 - Any role variable with a corresponding state variable setting to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
 - `os6_interface` (dictionary) holds a dictionary with the interface name; interface name can correspond to any of the valid OS interfaces with the unique interface identifier name
-- For physical interfaces, the interface name must be in *<interfacename> <tuple>* format; for logical interfaces, the interface must be in *<logical_interfacename> <id>* format; physical interface name can be *TenGigabitEthernet 1/0/1* for os6 devices
+- For physical interfaces, the interface name must be in *<interfacename> <tuple>* format; for logical interfaces, the interface must be in *<logical_interfacename> <id>* format; physical interface name can be *Te1/0/1* for os6 devices
 - For interface ranges, the interface name must be in *range <interface_type> <node/slot/port[:subport]-node/slot/port[:subport]>* format
 - Logical interface names can be *vlan 1* or *port-channel 1*
 - Variables and values are case-sensitive
@@ -80,7 +80,7 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
     build_dir: ../temp/temp_os6
 
     os6_interface:
-        TenGigabitEthernet 1/0/8:
+        Te1/0/8:
                 desc: "Connected to Spine1"
                 portmode: trunk
                 admin: up

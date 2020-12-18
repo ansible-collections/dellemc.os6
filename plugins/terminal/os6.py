@@ -42,10 +42,11 @@ class TerminalModule(TerminalBase):
         re.compile(br"(\bThe maximum number of users have already been created\b)|(\bUse '-' for range\b)"),
         re.compile(br"(?:incomplete|ambiguous) command", re.I),
         re.compile(br"connection timed out", re.I),
+        re.compile(br"\bParameter length should be exactly 32 characters\b"),
         re.compile(br"'[^']' +returned error code: ?\d+"),
         re.compile(br"Invalid|invalid.*$", re.I),
         re.compile(br"((\bout of range\b)|(\bnot found\b)|(\bCould not\b)|(\bUnable to\b)|(\bCannot\b)|(\bError\b)).*", re.I),
-        re.compile(br"((\balready exists\b)|(\bnot exist\b)|(\bnot active\b)|(\bFailed\b)|(\bIncorrect\b)|(\bnot enabled\b)).*", re.I),
+        re.compile(br"((\balready exists\b)|(\bnot exist\b)|(\bnot active\b)|(\bFailed\b)|(\bIncorrect\b)|(\bnot enabled\b)|(\bDeactivate\b)).*", re.I),
 
     ]
 

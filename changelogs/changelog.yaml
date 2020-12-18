@@ -93,3 +93,12 @@ releases:
     fragments:
           - 1.0.5.yaml
     release_date: "2020-12-09"  
+  1.0.6:
+    changes:
+      bugfixes:
+        - module utils fix for exit handling in multilevel parent commands 
+        - config module fix to handle multiline banner
+        - terminal plugin fix to handle error reported by management access lists
+    fragments:
+          - 1.0.6.yaml
+    release_date: "2020-12-18"

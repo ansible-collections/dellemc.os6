@@ -90,7 +90,7 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
           fast_start_repeat_count: 4
           config_notification: true
       local_interface:
-        GigabitEthernet 1/0/1:
+        Gi1/0/1:
           mode:
             tx: true
             rx: false

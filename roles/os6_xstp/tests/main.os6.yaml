@@ -20,5 +20,5 @@ os6_xstp:
           bridge_priority: 4096
           vlans_state: present
     intf:
-      TenGigabitEthernet 1/0/5:
+      Te1/0/5:
         edge_port: true

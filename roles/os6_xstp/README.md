@@ -101,7 +101,7 @@ It writes a simple playbook that only references the *os6_xstp* role. By includi
               bridge_priority: 4096
               vlans_state: present
         intf:
-          FortyGigabitEthernet 4/0/1:
+          Fo4/0/1:
             edge_port: true
 
 **Simple playbook to setup system — switch1.yml**

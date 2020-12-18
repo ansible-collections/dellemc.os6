@@ -2,11 +2,11 @@
 # Sample variables for OS6 device
 
 os6_interface:
-    TenGigabitEthernet 1/0/2:
+    Te1/0/2:
             desc: "Connected to Spine1"
             portmode: trunk
             admin: up
-    TenGigabitEthernet 1/0/1:
+    Te1/0/1:
             desc: "Connected to Access"
             portmode: access
             admin: up
