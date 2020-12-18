@@ -173,7 +173,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
         re.compile(r'line (console|telnet|ssh).*$'),
         re.compile(r'ip ssh !(server).*$'),
         re.compile(r'ip dhcp pool.*$'),
-        re.compile(r'ip vrf\s.*$'),
+        re.compile(r'ip vrf (?!forwarding).*$'),
         re.compile(r'(ip|mac|management|arp) access-list.*$'),
         re.compile(r'ipv6 (dhcp pool|router).*$'),
         re.compile(r'mail-server.*$'),
@@ -200,6 +200,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
     children = []
     parent_match = False
     for line in str(lines).split('\n'):
+        line = str(line).strip()
         text = str(re.sub(r'([{};])', '', line)).strip()
         cfg = ConfigLine(text)
         cfg.raw = line
