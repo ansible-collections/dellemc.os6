@@ -208,12 +208,17 @@ from ansible_collections.dellemc.os6.plugins.module_utils.network.os6 import os6
 from ansible_collections.dellemc.os6.plugins.module_utils.network.os6 import load_config, run_commands
 from ansible_collections.dellemc.os6.plugins.module_utils.network.os6 import WARNING_PROMPTS_RE
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.config import dumps
-
+import re
+from ansible.module_utils.six import iteritems
+from ansible.module_utils.connection import exec_command
+from ansible.module_utils._text import to_bytes
 
 def get_candidate(module):
     candidate = NetworkConfig(indent=0)
+    banners = {}
     if module.params['src']:
-        candidate.load(module.params['src'])
+        src, banners = extract_banners(module.params['src'])
+        candidate.load(src)
     elif module.params['lines']:
         parents = module.params['parents'] or list()
         commands = module.params['lines'][0]
@@ -222,19 +227,61 @@ def get_candidate(module):
         elif (isinstance(commands, dict)) and (isinstance(commands['command'], str)):
             candidate.add([commands['command']], parents=parents)
         else:
-            candidate.add(module.params['lines'], parents=parents)
-    return candidate
+            lines, banners = extract_banners(module.params['lines'])
+            candidate.add(lines, parents=parents)
+    return candidate, banners
 
+def extract_banners(config):
+    flag = False
+    if isinstance(config, list):
+        str1 = "\n"
+        config = str1.join(config)
+        flag = True
+    banners = {}
+    banner_cmds = re.findall(r'^banner (\w+)', config, re.M)
+    for cmd in banner_cmds:
+        regex = r'banner %s \"(.+?)\".*' % cmd
+        match = re.search(regex, config, re.S)
+        if match:
+            key = 'banner %s' % cmd
+            banners[key] = match.group(1).strip()
+
+    for cmd in banner_cmds:
+        regex = r'banner %s \"(.+?)\".*' % cmd
+        match = re.search(regex, config, re.S)
+        if match:
+            config = config.replace(str(match.group(1)), '')
+    config = re.sub(r'banner \w+ \"\"', '', config)
+    if flag:
+        config = config.split("\n")
+    return (config, banners)
+
+def diff_banners(want, have):
+    candidate = {}
+    for key, value in iteritems(want):
+        if value != have.get(key):
+            candidate[key] = value
+    return candidate
 
 def get_running_config(module):
     contents = module.params['config']
     if not contents:
         contents = get_config(module)
-    return contents
+    contents, banners = extract_banners(contents)
+    return contents, banners
 
+def load_banners(module, banners):
+    exec_command(module, 'configure terminal')
+    for each in banners:
+         delimiter = '"'
+         cmdline = ""
+         for key, value in each.items():
+             cmdline = key + " " + delimiter + value + delimiter
+             for cmd in cmdline.split("\n"):
+                 rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
+    exec_command(module, 'end')
 
 def main():
-
     backup_spec = dict(
         filename=dict(),
         dir_path=dict(type='path')
@@ -276,24 +323,27 @@ def main():
     check_args(module, warnings)
     result = dict(changed=False, saved=False, warnings=warnings)
 
-    candidate = get_candidate(module)
+    candidate, want_banners = get_candidate(module)
     if module.params['backup']:
         if not module.check_mode:
             result['__backup__'] = get_config(module)
 
     commands = list()
-
     if any((module.params['lines'], module.params['src'])):
         if match != 'none':
-            config = get_running_config(module)
+            config, have_banners = get_running_config(module)
             config = NetworkConfig(contents=config, indent=0)
             if parents:
                 config = get_sublevel_config(config, module)
             configobjs = candidate.difference(config, match=match, replace=replace)
         else:
             configobjs = candidate.items
-
-        if configobjs:
+            have_banners = {}
+        diffbanners = diff_banners(want_banners, have_banners)
+        banners = list()
+        if diffbanners:
+            banners.append(diffbanners)
+        if configobjs or banners:
             commands = dumps(configobjs, 'commands')
             if ((isinstance(module.params['lines'], list)) and
                     (isinstance(module.params['lines'][0], dict)) and
@@ -303,20 +353,32 @@ def main():
                        'answer': module.params['lines'][0]['answer']}
                 commands = [module.jsonify(cmd)]
             else:
-                commands = commands.split('\n')
+                if commands:
+                  commands = commands.split('\n')
 
             if module.params['before']:
-                commands[:0] = module.params['before']
+                commands[:0], before_banners = extract_banners(module.params['before'])
+                if before_banners:
+                    banners.insert(0, before_banners)
 
             if module.params['after']:
-                commands.extend(module.params['after'])
+                commands_after, after_banners = extract_banners(module.params['after'])
+                commands.extend(commands_after)
+                if after_banners:
+                    banners.insert(len(banners), after_banners)
 
             if not module.check_mode and module.params['update'] == 'merge':
-                load_config(module, commands)
+                if commands:
+                    load_config(module, commands)
+                if banners:
+                    load_banners(module, banners)
 
             result['changed'] = True
             result['commands'] = commands
-            result['updates'] = commands
+            result['updates'] = commands if commands else []
+            result['banners'] = banners
+            if result['banners']:
+                result['updates'].extend(banners)
 
     if module.params['save']:
         result['changed'] = True
