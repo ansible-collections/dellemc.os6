@@ -22,14 +22,18 @@ Role variables
 
 | Key        | Type                      | Notes                                                   | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``name``             | string                        | Configures the name of the VLAN, field needs to be left blank to remove the user defined name and assign the default name                    | os6 |
-| ``tagged_members``   | list         | Specifies the list of port members to be tagged to the corresponding VLAN (see ``tagged_members.*``) | os6 |
+| ``tagged_members_append`` | boolean: true,false         | appends the tagged vlan members to the existing list on the interfaces | os6 |
+| ``tagged_members_state``  | string: absent,present      | removes all tagged members | os6 |
+| ``vlan <id>`` | string | specifiy the vlan to be configured (see ``vlan <id>.*``) | os6 |
+| ``vlan <id>.name``             | string                        | Configures the name of the VLAN, field needs to be left blank to remove the user defined name and assign the default name                    | os6 |
+| ``vlan <id>.tagged_members``   | list         | Specifies the list of port members to be tagged to the corresponding VLAN (see ``tagged_members.*``) | os6 |
 | ``tagged_members.port`` | string | Specifies valid device interface names to be tagged for each VLAN | os6 |
 | ``tagged_members.state`` | string: absent,present | Deletes the tagged association for the VLAN if set to absent | os6 |
-| ``untagged_members`` | list         | Specifies the list of port members to be untagged to the corresponding VLAN (see ``untagged_members.*``) | os6 |
+| ``vlan <id>.untagged_members`` | list         | Specifies the list of port members to be untagged to the corresponding VLAN (see ``untagged_members.*``) | os6 |
 | ``untagged_members.port`` | string | Specifies valid device interface names to be untagged for each VLAN | os6 |
 | ``untagged_members.state`` | string: absent,present | Deletes the untagged association for the VLAN if set to absent | os6 |
-| ``state``           | string: absent,present\*          | Deletes the VLAN corresponding to the ID if set to absent | os6 |
+| ``vlan <id>.state``           | string: absent,present\*          | Deletes the VLAN corresponding to the ID if set to absent | os6 |
+
                                                                                                       
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
@@ -74,6 +78,8 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
     build_dir: ../temp/temp_os6
 
     os6_vlan:
+        tagged_members_append: False
+        tagged_members_state: present
         vlan 100:
           name: "Mgmt Network"
           tagged_members:

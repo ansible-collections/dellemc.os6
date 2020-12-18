@@ -5,6 +5,8 @@
  
 os6_vlan:
     vlan 100:
+      tagged_members_append: False
+      tagged_members_state: present
       name: "Blue Network"
       tagged_members:
         - port: Te1/0/1
