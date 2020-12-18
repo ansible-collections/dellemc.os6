@@ -14,7 +14,6 @@ Bugfixes
 - config module fix to handle multiline banner
 - terminal plugin fix to handle error reported by management access lists
 
-
 v1.0.5
 ======
 

@@ -189,7 +189,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
         re.compile(r'radius server (?!.*(attribute|dead-criteria|deadtime|timeout|key|load-balance|retransmit|source-interface|source-ip|vsa)).*$'),
         re.compile(r'(tacacs-server) host.*$')]
 
-    childline = re.compile(r'^exit$')
+    childline = re.compile(r'^exit\s*$')
     config = list()
     parent = list()
     children = []
