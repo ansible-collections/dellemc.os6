@@ -359,8 +359,8 @@ def main():
                        'answer': module.params['lines'][0]['answer']}
                 commands = [module.jsonify(cmd)]
             else:
-              if commands:
-                commands = commands.split('\n')
+                if commands:
+                    commands = commands.split('\n')
 
             if module.params['before']:
                 commands[:0], before_banners = extract_banners(module.params['before'])
