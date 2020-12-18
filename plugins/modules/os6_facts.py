@@ -312,14 +312,14 @@ class Interfaces(FactsBase):
         desc_val, desc_info = "", ""
         desc = re.split(r'[-+\s](?:-+\s)[-+\s].*', desc)
         for desc_val in desc:
-          if desc_val:
-            for en in desc_val.splitlines():
-                if key in en:
-                    match = re.search(r'^(\S+)\s+(\S+)', en)
-                    if match.group(2) in ['Full', 'N/A']:
-                        return "Null"
-                    else:
-                        return match.group(2)
+            if desc_val:
+                for en in desc_val.splitlines():
+                    if key in en:
+                        match = re.search(r'^(\S+)\s+(\S+)', en)
+                        if match.group(2) in ['Full', 'N/A']:
+                            return "Null"
+                        else:
+                            return match.group(2)
 
     def parse_macaddress(self, data):
         match = re.search(r'Burned In MAC Address(.+)\s([A-Z0-9.]*)\n', data)

@@ -222,7 +222,7 @@ def os6_parse(lines, indent=None, comment_tokens=None):
                 if not children and len(parent) > 1:
                     configlist = [cfg]
                     children.append(configlist)
-                    children.insert(len(parent)-1, [])
+                    children.insert(len(parent) - 1, [])
                 parent_match = True
                 continue
         # handle exit

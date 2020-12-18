@@ -278,12 +278,12 @@ def get_running_config(module):
 def load_banners(module, banners):
     exec_command(module, 'configure terminal')
     for each in banners:
-      delimiter = '"'
-      cmdline = ""
-      for key, value in each.items():
-          cmdline = key + " " + delimiter + value + delimiter
-          for cmd in cmdline.split("\n"):
-              rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
+        delimiter = '"'
+        cmdline = ""
+        for key, value in each.items():
+            cmdline = key + " " + delimiter + value + delimiter
+            for cmd in cmdline.split("\n"):
+                rc, out, err = exec_command(module, module.jsonify({'command': cmd, 'sendonly': True}))
     exec_command(module, 'end')
 
 
@@ -359,8 +359,8 @@ def main():
                        'answer': module.params['lines'][0]['answer']}
                 commands = [module.jsonify(cmd)]
             else:
-                if commands:
-                  commands = commands.split('\n')
+              if commands:
+                commands = commands.split('\n')
 
             if module.params['before']:
                 commands[:0], before_banners = extract_banners(module.params['before'])
