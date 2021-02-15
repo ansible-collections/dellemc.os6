@@ -30,7 +30,7 @@ Role variables
 | ``admin``      | string: up,down\*              | Configures the administrative state for the interface; configuring the value as administratively "up" enables the interface; configuring the value as administratively "down" disables the interface | os6 |
 | ``suppress_ra`` | string; present,absent     | Configures IPv6 router advertisements if set to present | os6 |
 | ``ip_type_dynamic`` | boolean: true,false           | Configures IP address DHCP if set to true (*ip_and_mask* is ignored if set to true) | os6 |
-| ``ip_and_mask`` | string | configures the specified IP address to the interface VLAN on os6 devices (192.168.11.1/24 format) | os6 |
+| ``ip_and_mask`` | string | configures the specified IP address to the interface VLAN on os6 devices (192.168.11.1 255.255.255.0 format) | os6 |
 | ``ipv6_and_mask`` | string | configures a specified IP address to the interface VLAN on os6 devices (2001:4898:5808:ffa2::1/126 format) | os6 |
 | ``ipv6_reachabletime``       | integer                       | Configures the reachability time for IPv6 neighbor discovery (0 to 3600000), field needs to be left blank to remove the reachability time | os6 |
 | ``ip_helper`` | list | Configures DHCP server address objects (see ``ip_helper.*``) | os6 |
@@ -86,7 +86,7 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
                 admin: up
         vlan 100:
                 admin: down
-                ip_and_mask:
+                ip_and_mask: 3.3.3.3 255.255.255.0
                 ipv6_and_mask: 2002:4898:5408:faaf::1/64
                 suppress_ra: present
                 ip_helper:
