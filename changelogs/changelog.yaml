@@ -82,8 +82,8 @@ releases:
         - Fix issue in using list of strings for `commands` argument for `os6_command` module
         - Fix issue in using "os6_facts" module for non-legacy n-series platofrms
     fragments:
-      - 1.0.4.yaml
-    release_date: "2020-11-17"
+    - 1.0.4.yaml
+    release_date: '2020-11-17'
   1.0.5:
     changes:
       bugfixes:
@@ -91,8 +91,8 @@ releases:
         - command module change to keep similar changes across all dell networking OSs
         - terminal plugin fix to send "terminal length 0" command
     fragments:
-          - 1.0.5.yaml
-    release_date: "2020-12-09"  
+    - 1.0.5.yaml
+    release_date: '2020-12-09'
   1.0.6:
     changes:
       bugfixes:
@@ -100,5 +100,13 @@ releases:
         - config module fix to handle multiline banner
         - terminal plugin fix to handle error reported by management access lists
     fragments:
-          - 1.0.6.yaml
-    release_date: "2020-12-18"
+    - 1.0.6.yaml
+    release_date: '2020-12-18'
+  1.0.7:
+    changes:
+      release_summary:
+        - Fixed sanity error found during the sanity tst of automation hub upload
+        - os6 interface role readme updated for proper syntax of ip address and mask
+    fragments:
+    - 1.0.7.yaml
+    release_date: '2021-02-15'

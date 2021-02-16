@@ -4,6 +4,15 @@ Ansible Network Collection for Dell EMC OS6 Release Notes
 
 .. contents:: Topics
 
+v1.0.7
+======
+
+Release Summary
+---------------
+
+- Fixed sanity error found during the sanity tst of automation hub upload
+- os6 interface role readme updated
+
 v1.0.6
 ======
 
