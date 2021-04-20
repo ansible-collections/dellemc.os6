@@ -19,7 +19,7 @@ os6_users:
     {% if item.state is defined and item.state == "absent" %}
 no username {{ item.username }}        
       {% if item.sshkey is defined and item.sshkey %}
-no username {{ item.username }} sshkey
+crypto key zeroize pubkey-chain ssh user-key {{ item.username }}
       {% endif %}
     {% else %}
       {% if item.password is defined and item.password %}
