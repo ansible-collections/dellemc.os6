@@ -6,5 +6,6 @@
 os6_users:
   - username: test
     password: test
+    sshkey: "ssh-rsa AAAAsdhjkd"
     privilege: 0
     state: absent

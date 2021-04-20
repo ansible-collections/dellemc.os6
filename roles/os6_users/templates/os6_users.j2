@@ -7,6 +7,7 @@ Configure users commands for os6 Devices
 os6_users:
   - username: test
     password: test
+    sshkey: "ssh-rsa AAAAsdhjkd..."
     privilege: 0
     state: absent
 
@@ -16,7 +17,10 @@ os6_users:
 {% for item in os6_users %}
   {% if item.username is defined %}
     {% if item.state is defined and item.state == "absent" %}
-no username {{ item.username }}
+no username {{ item.username }}        
+      {% if item.sshkey is defined and item.sshkey %}
+no username {{ item.username }} sshkey
+      {% endif %}
     {% else %}
       {% if item.password is defined and item.password %}
         {% if item.privilege is defined and item.privilege %}
@@ -30,6 +34,9 @@ username {{ item.username }} nopassword privilege {{ item.privilege }}
         {% else %}
 username {{ item.username }} nopassword
         {% endif %}
+      {% endif %}
+      {% if item.sshkey is defined and item.sshkey %}
+username {{ item.username }} sshkey "{{ item.sshkey }}" 
       {% endif %}
     {% endif %}
   {% endif %}

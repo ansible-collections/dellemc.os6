@@ -21,6 +21,7 @@ Role variables
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``username`` | string (required)         | Configures the username which must adhere to specific format guidelines (valid usernames begin with A-Z, a-z, or 0-9 and can also contain `@#$%^&*-_= +;<>,.~` characters) | os6 |
 | ``password`` | string                    | Configures the password set for the username; password length must be at least eight character | os6 |
+| ``sshkey`` | string                    | Configures the sshkey set for the username | os6 |
 | ``privilege`` | int                | Configures the privilege level for the user; either 0, 1, or 15; if this key is ommitted, the default privilege is 1 | os6 |
 | ``state`` | string: absent,present\*     | Deletes a user account if set to absent  | os6 |
 
@@ -72,11 +73,13 @@ If `os6_cfg_generate` is set to true, the variable generates the role configurat
         state: absent
       - username: u1
         password: dell@force10
+        sshkey: "ssh-rsa AAAAsdhjkd"
         password: false
         privilege: 1
         state: present
       - username: u2
         password: test1234567
+        sshkey: "ssh-rsa AAAAsdhjkd"
         privilege: 3
         state: present
 
