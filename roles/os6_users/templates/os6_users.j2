@@ -36,7 +36,9 @@ username {{ item.username }} nopassword
         {% endif %}
       {% endif %}
       {% if item.sshkey is defined and item.sshkey %}
-username {{ item.username }} sshkey "{{ item.sshkey }}" 
+crypto key pubkey-chain ssh user-key "{{ item.username }}" rsa
+key-string row  "{{ item.sshkey }}" 
+exit
       {% endif %}
     {% endif %}
   {% endif %}
