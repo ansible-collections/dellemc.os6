@@ -1,0 +1,18 @@
+---
+# vars file for dellemc.os6.os6_banner, 
+# below gives a sample configuration
+# Sample variables for OS6 device
+
+os6_banner:
+    login: 
+      text: |
+        This is a 
+        Multiline banner
+      state: present
+    exec: 
+      text: exec banner
+      state: present
+    motd:
+      text: motd banner
+      acknowledge: true
+      state: present
