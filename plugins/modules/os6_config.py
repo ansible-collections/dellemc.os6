@@ -376,6 +376,7 @@ def main():
                 if after_banners:
                     banners.insert(len(banners), after_banners)
 
+            result_banners = []
             if not module.check_mode and module.params['update'] == 'merge':
                 if commands:
                     load_config(module, commands)
