@@ -96,7 +96,6 @@ exit
   {% endfor -%}
   {%- for cmd in cmd_dict -%}
 interface {{cmd}}
-
     {# Begin native vlan
      Persistent problems: 
      - if the interface is in tunk mode but has no tagged member, the untagged vlan will not be set as native.
@@ -120,7 +119,6 @@ switchport trunk native vlan {{ vlan_id[1] }}
       {% endif -%} 
     {% endfor -%}
     {# END native vlan #}
-
     {% if 'tagged_members_state' in os6_vlan and os6_vlan['tagged_members_state']=='absent' %}
 no switchport trunk allowed vlan
     {% else %}
