@@ -258,8 +258,8 @@ def os6_parse(lines, indent=None, comment_tokens=None):
 
 class NetworkConfig(NetworkConfig):
 
-    def load(self, contents):
-        self._items = os6_parse(contents, self._indent)
+    def load(self, s):
+        self._items = os6_parse(s, self._indent)
 
     def _diff_line(self, other, path=None):
         diff = list()
