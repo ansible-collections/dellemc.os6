@@ -53,7 +53,7 @@ class Cliconf(CliconfBase):
         if match:
             device_info['network_os_version'] = match.group(1)
 
-        match = re.search(r'Machine Type...................... (\S+)', data, re.M)
+        match = re.search(r'System Model ID................... (\S+)', data, re.M)
         if match:
             device_info['network_os_model'] = match.group(1)
 
