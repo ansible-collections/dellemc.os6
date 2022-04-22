@@ -23,7 +23,7 @@ __metaclass__ = type
 
 DOCUMENTATION = """
 ---
-cliconf: os6
+name: os6
 short_description: Use os6 cliconf to run command on Dell OS6 platform
 description:
   - This os6 plugin provides low level abstraction apis for
