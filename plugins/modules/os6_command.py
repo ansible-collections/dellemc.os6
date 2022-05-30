@@ -35,6 +35,7 @@ options:
         module is not returned until the condition is satisfied or
         the number of retries has expired.
     type: list
+    elements: str
     required: true
   wait_for:
     description:
