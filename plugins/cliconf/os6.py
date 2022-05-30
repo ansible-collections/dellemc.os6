@@ -49,15 +49,15 @@ class Cliconf(CliconfBase):
         reply = self.get('show version')
         data = to_text(reply, errors='surrogate_or_strict').strip()
 
-        match = re.search(r'Software Version (\S+)', data)
+        match = re.search(r'Image File........................ (\S+)', data)
         if match:
             device_info['network_os_version'] = match.group(1)
 
-        match = re.search(r'System Type (\S+)', data, re.M)
+        match = re.search(r'System Model ID................... (\S+)', data, re.M)
         if match:
             device_info['network_os_model'] = match.group(1)
 
-        reply = self.get('show running-config | grep hostname')
+        reply = self.get('show running-config | include hostname')
         data = to_text(reply, errors='surrogate_or_strict').strip()
         match = re.search(r'^hostname (.+)', data, re.M)
         if match:
