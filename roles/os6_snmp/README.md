@@ -33,6 +33,21 @@ Role variables
 | ``snmp_traps`` | list | Configures SNMP traps (see ``snmp_traps.*``) | os6  |
 | ``snmp_traps.name`` | string | Enables SNMP traps   | os6 |
 | ``snmp_traps.state`` | string: absent,present\* | Deletes the SNMP trap if set to absent | os6 |
+| ``snmp_v3.views.name`` | string | Configures the SNMP v3 view name | os6 |
+| ``snmp_v3.views.oid`` | string | Configures the SNMP v3 oid access | os6 |
+| ``snmp_v3.views.state`` | string: absent,present\* | Deletes the SNMP view if set to absent | os6 |
+| ``snmp_v3.groups.name`` | string | Configures the SNMP v3 group name | os6 |
+| ``snmp_v3.groups.auth`` | string: auth,noauth,priv | Configures the group authentification format | os6 |
+| ``snmp_v3.groups.priviledge`` | string: read,write | Configures the group priviledges | os6 |
+| ``snmp_v3.groups.view`` | string | Configures the group view access | os6 |
+| ``snmp_v3.groups.state`` | string: absent,present\* | Deletes the SNMP group if set to absent | os6 |
+| ``snmp_v3.users.name`` | string | Configures the SNMP v3 user name | os6 |
+| ``snmp_v3.users.group`` | string | Configures the SNMP v3 user group affiliation | os6 |
+| ``snmp_v3.users.auth_type`` | string: auth-md5,auth-md5-key,auth-sha,auth-sha-key | Configures the SNMP v3 user authentification type | os6 |
+| ``snmp_v3.users.auth_sting`` | string | Configures the SNMP v3 user authentification secret | os6 |
+| ``snmp_v3.users.priv_type`` | string: priv-aes128,priv-aes128-key,priv-des,priv-des-key | Configures the SNMP v3 user encryption type | os6 |
+| ``snmp_v3.users.priv_sting`` | string | Configures the SNMP v3 user encryption string | os6 |
+| ``snmp_v3.users.state`` | string: absent,present\* | Deletes the SNMP user if set to absent | os6 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 
 
@@ -94,6 +109,25 @@ When `os6_cfg_generate` is set to true, the variable generates the configuration
       snmp_traps:
         - name: config
           state: present
+      snmp_v3:
+        - views:
+            - name: test_view
+              oid: iso
+              state: absent
+          groups:
+            - name: test_group
+              auth: auth/noauth/priv
+              priviledge: read/write
+              view: test_view
+              state: absent
+          users:
+            - name: test
+              group: test_group
+              auth_type: auth-md5/auth-md5-key/auth-sha/auth-sha-key
+              auth_sting: authpass
+              priv_type: priv-aes128/priv-aes128-key/priv-des/priv-des-key
+              priv_sting: privpass
+              state: absent
 
 **Simple playbook to setup snmp — switch1.yaml**
 

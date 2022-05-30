@@ -22,6 +22,25 @@ os6_snmp:
         communitystring: public
         udpport: 1
         state: absent
+    snmp_v3:
+      - views:
+        - name: test_view
+          oid: iso
+          state: absent
+        groups:
+        - name: test_group
+          auth: auth/noauth/priv
+          priviledge: read/write
+          view: test_view
+          state: absent
+        users:
+        - name: test
+          group: test_group
+          auth_type: auth-md5/auth-md5-key/auth-sha/auth-sha-key
+          auth_sting: authpass
+          priv_type: priv-aes128/priv-aes128-key/priv-des/priv-des-key
+          priv_sting: privpass
+          state: absent
 
 #####################################}
 {% if os6_snmp is defined and os6_snmp %}
@@ -85,6 +104,59 @@ snmp-server enable traps {{ name }}
 snmp-server enable traps {{ val.name }}
             {% endif %}
           {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% elif key == "snmp_v3" %}
+    {% set v3_vars = value %} 
+    {% if v3_vars.views is defined %}
+      {% for views in v3_vars.views %}
+        {% if views.name is defined and views.name %}
+          {% if views.state is defined and views.state=="absent" %}
+no snmp-server view "{{ views.name }}"
+          {% else %}
+            {% if views.oid is defined and views.oid %}
+snmp-server view "{{ views.name }}" {{ views.oid }} included              
+            {% endif %}  
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if v3_vars.groups is defined %}
+      {% for groups in v3_vars.groups %}
+        {% if groups.name is defined and groups.name %}
+          {% if groups.auth is defined and groups.auth %}
+            {% if groups.state is defined and groups.state=="absent" %}
+no snmp-server group "{{ groups.name }}" v3 {{ groups.auth }} 
+            {% else %}
+              {% if groups.view is defined and groups.view %}           
+                {% if groups.priviledge is defined and groups.privilege %}  
+snmp-server group "{{ groups.name }}" v3 {{ groups.auth }} {{ groups.privilege }} {{ groups.view }}                  
+                {% endif %}  
+              {% endif %}
+            {% endif %}  
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if v3_vars.users is defined %}
+      {% for users in v3_vars.users %}
+        {% if users.name is defined and users.name %}
+          {% if users.state is defined and users.state=="absent" %}
+no snmp-server user "{{ users.name }}"  
+          {% else %}
+            {% if users.group is defined and users.group %}           
+              {% if users.auth_type is defined and users.auth_type %}           
+                {% if users.auth_sting is defined and users.auth_sting %}           
+                  {% if users.priv_type is defined and users.priv_type %}             
+                    {% if users.priv_sting is defined and users.priv_sting %}  
+snmp-server user "{{ users.name }}" {{ users.group }} {{ users.auth_type }} {{ users.auth_sting }} {{ users.priv_type }} {{ users.priv_sting }}  
+                    {% endif %}                    
+                  {% endif %}                      
+                {% endif %}                      
+              {% endif %}  
+            {% endif %}
+          {% endif %}  
         {% endif %}
       {% endfor %}
     {% endif %}
