@@ -192,7 +192,8 @@ def os6_parse(lines, indent=None, comment_tokens=None):
         re.compile(r'spanning-tree mst configuration.*$'),
         re.compile(r'logging (?!.*(cli-command|buffered|console|email|facility|file|monitor|protocol|snmp|source-interface|traps|web-session)).*$'),
         re.compile(r'radius server (?!.*(attribute|dead-criteria|deadtime|timeout|key|load-balance|retransmit|source-interface|source-ip|vsa)).*$'),
-        re.compile(r'(tacacs-server) host.*$')]
+        re.compile(r'(tacacs-server) host.*$'),
+        re.compile(r'crypto key pubkey-chain.*$')]
 
     childline = re.compile(r'^exit\s*$')
     config = list()
