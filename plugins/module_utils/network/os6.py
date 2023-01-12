@@ -195,6 +195,10 @@ def os6_parse(lines, indent=None, comment_tokens=None):
         re.compile(r'(tacacs-server) host.*$')]
 
     childline = re.compile(r'^exit\s*$')
+
+    # bring vlan config to one single line
+    lines = re.sub("(?<=vlan )([0-9,-]+)\nvlan ", "\\1,", lines, 0, re.MULTILINE)
+
     config = list()
     parent = list()
     children = []
